@@ -1,0 +1,132 @@
+/**
+ * Created by Peter on 14-3-16.
+ */
+
+function scatterplot(){
+
+    // load data from file
+    d3.csv("data/top50with5categories.csv", function(error, dataset) {
+
+        // ensures data from csv is interpreted as int
+        dataset.forEach(function(d) {
+            d.tuition03_tf = +d.tuition03_tf;
+            d.tot_rev_w_auxother_sum = +d.tot_rev_w_auxother_sum;
+            d.control = +d.control;
+            d.total_enrollment = +d.total_enrollment;
+            d.all_employees = +d.all_employees;
+        });
+
+    data = dataset;
+    updateChart(data);
+    });
+
+
+
+}
+
+function updateChart(data)
+{
+    xValue = function(d) {return d[xvar];},
+        yValue = function(d) {return d[yvar];},
+
+        // setting up the domain for the x and y-axis
+        xScale.domain([0, d3.max(data, xValue) + 1]);
+    yScale.domain([0, d3.max(data, yValue) + 1]);
+
+    // creating the x-axis
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis)
+        .append("text")
+        .attr("class", "label")
+        .attr("x", width)
+        .attr("y", -6)
+        .style("text-anchor", "end")
+        .text(xname);
+
+    // creating the y-axis
+    svg.append("g")
+        .attr("class", "y axis")
+        .call(yAxis)
+        .append("text")
+        .attr("class", "label")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 6)
+        .attr("dy", ".71em")
+        .style("text-anchor", "end")
+        .text(yname);
+
+    // plotting the points on to the graph
+    svg.selectAll(".dot")
+        .data(data)
+        .enter().append("circle")
+        .attr("class", "dot")
+        .attr("r", 3.5)
+        .attr("cx", xMap)
+        .attr("cy", yMap)
+        .style("fill", "black")
+        .on("mouseover", function(d) {
+            tooltip.transition()
+                .duration(200)
+                .style("opacity", .9)
+                .style("color", "black");
+            tooltip.html(d["instname"] + "<br/> Tuition: $" + d["tuition03_tf"]
+                    + "<br/> Revenue: $" + d["tot_rev_w_auxother_sum"]
+                    + "<br/> Control: " + d["control"]
+                    + "<br/> Total Enrollment: " + d["total_enrollment"]
+                    + "<br/> Total Employees: " + d["all_employees"])
+                .style("left", (d3.event.pageX + 5) + "px")
+                .style("top", (d3.event.pageY - 28) + "px");
+        })
+        .on("mouseout", function(d) {
+            tooltip.transition()
+                .duration(500)
+                .style("opacity", 0);
+        });
+};
+
+function chooseCategory()
+{
+    xvar = document.getElementById("xList")
+        .options[xList.selectedIndex].value;
+    yvar = document.getElementById("yList")
+        .options[yList.selectedIndex].value;
+    xname = document.getElementById("xList")
+        .options[xList.selectedIndex].text,
+        yname = document.getElementById("yList")
+            .options[yList.selectedIndex].text;
+    svg.selectAll("g")
+        .data([])
+        .exit()
+        .remove();
+    svg.selectAll(".dot")
+        .data([])
+        .exit()
+        .remove();
+    updateChart(data);
+
+}
+
+function spform(){
+
+    var text = '<form>'+
+        <!--Select value for x-axis:-->
+        '<select id="xList" onchange="chooseCategory()">'+
+            '<option value="tuition03_tf">Tuition</option>'+
+            '<option value="tot_rev_w_auxother_sum">Total Revenue</option>'+
+    '<option value="control">Control</option>'+
+    '<option value="total_enrollment">Total Enrollment</option>'+
+    '<option value="all_employees">Employees</option>'+
+    '</select>'+
+    <!--Select value for y-axis:-->
+        '<select id="yList" onchange="chooseCategory()">'+
+    '<option value="tuition03_tf">Tuition</option>'+
+    '<option value="tot_rev_w_auxother_sum">Total Revenue</option>'+
+    '<option value="control">Control</option>'+
+    '<option value="total_enrollment">Total Enrollment</option>'+
+    '<option value="all_employees">Employees</option>'+
+    '</select>'+
+    '</form>';
+    document.getElementById("selection").innerHTML=text;
+}
