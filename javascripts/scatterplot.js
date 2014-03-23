@@ -2,6 +2,40 @@
  * Created by Peter on 14-3-16.
  */
 
+
+var svg;
+
+var data;
+
+var margin = {top: 20, right: 20, bottom: 30, left: 90},
+    width = 800 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+var xvar = "tuition03_tf",
+    yvar = "tot_rev_w_auxother_sum",
+    xname = "Tuition",
+    yname = "Total Revenue";
+
+// setting up x
+var xValue = function (d) {
+        return d[xvar];
+    },
+    xScale = d3.scale.linear().range([0, width]),
+    xMap = function (d) {
+        return xScale(xValue(d));
+    },
+    xAxis = d3.svg.axis().scale(xScale).orient("bottom");
+
+// setting up y
+var yValue = function (d) {
+        return d[yvar];
+    },
+    yScale = d3.scale.linear().range([height, 0]),
+    yMap = function (d) {
+        return yScale(yValue(d));
+    },
+    yAxis = d3.svg.axis().scale(yScale).orient("left");
+
 function scatterplot(){
 
     // load data from file
@@ -17,11 +51,25 @@ function scatterplot(){
         });
 
     data = dataset;
+
+        createSPSvg();
+        spform();
+
     updateChart(data);
     });
 
 
 
+}
+
+
+function createSPSvg() {
+    svg = d3.select("#main").append("svg")
+        .attr("id", "mainsvg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 }
 
 function updateChart(data)

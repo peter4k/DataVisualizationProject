@@ -42,111 +42,31 @@
         <div id="selection">
 
         </div>
-            <script>
+        <script>
 
-                d3.selectAll("#pieradio")
-                        .on("change", formchange);
+            d3.selectAll("#pieradio")
+                    .on("change", formchange);
 
-                function formchange() {
-                    var value = this.value;
-                    if(value == "pie"){
-                        deleteSvg();
-                        pieform();
-                        createPieSvg();
-                        piechart();
-                    }
-                    if(value == "scatterplot"){
-                        deleteSvg();
-                        spform();
-                        createSPSvg();
-                        scatterplot();
-                    }
+            function formchange() {
+                var value = this.value;
+                if (value == "pie") {
+                    deleteSvg();
+                    piechart();
                 }
-
-                var margin = {top: 20, right: 20, bottom: 30, left: 90},
-                        width = 800 - margin.left - margin.right,
-                        height = 500 - margin.top - margin.bottom;
-
-                var xvar = "tuition03_tf",
-                        yvar = "tot_rev_w_auxother_sum",
-                        xname = "Tuition",
-                        yname = "Total Revenue";
-
-                // setting up x
-                var xValue = function (d) {
-                            return d[xvar];
-                        },
-                        xScale = d3.scale.linear().range([0, width]),
-                        xMap = function (d) {
-                            return xScale(xValue(d));
-                        },
-                        xAxis = d3.svg.axis().scale(xScale).orient("bottom");
-
-                // setting up y
-                var yValue = function (d) {
-                            return d[yvar];
-                        },
-                        yScale = d3.scale.linear().range([height, 0]),
-                        yMap = function (d) {
-                            return yScale(yValue(d));
-                        },
-                        yAxis = d3.svg.axis().scale(yScale).orient("left");
-
-                // adding graph to page
-                var svg;
-                createSPSvg();
-                spform();
-
-                var radius = Math.min(width, height) / 3;
-
-                var color = d3.scale.category20();
-
-                var pie = d3.layout.pie()
-                        .value(function(d) { return d.revenue;})
-                        .sort(null);
-
-                var arc = d3.svg.arc()
-                        .innerRadius(radius - 100)
-                        .outerRadius(radius - 20);
-
-                //0:revenue
-                //1:tuition
-                //2:total enrollment
-                //3:all employees
-
-                var opt = 0;
-
-                //add the tooltip area to the webpage
-                var tooltip = d3.select("#main").append("div")
-                        .attr("class", "tooltip")
-                        .style("opacity", 0);
-
-                var data;
-
-                function createSPSvg(){
-                   svg = d3.select("#main").append("svg")
-                           .attr("id","mainsvg")
-                            .attr("width", width + margin.left + margin.right)
-                            .attr("height", height + margin.top + margin.bottom)
-                            .append("g")
-                            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+                if (value == "scatterplot") {
+                    deleteSvg();
+                    scatterplot();
                 }
+            }
 
-                function createPieSvg(){
-                    svg = d3.select("#main").append("svg")
-                            .attr("id","mainsvg")
-                            .attr("width", 800)
-                            .attr("height", 500)
-                            .append("g")
-                            .attr("transform", "translate(" + 800 / 2 + "," + 500 / 2 + ")");
-                }
+            scatterplot();
 
-                function deleteSvg(){
-                    d3.select("#mainsvg").remove();
-                    d3.select("#spselection").remove();
-                }
+            function deleteSvg() {
+                d3.select("#mainsvg").remove();
+                d3.select("#spselection").remove();
+            }
 
-            </script>
+        </script>
 
 
     </section>
@@ -162,10 +82,6 @@
     </footer>
 </div>
 
-
-<script>
-    scatterplot();
-</script>
 
 
 </body>

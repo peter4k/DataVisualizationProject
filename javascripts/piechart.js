@@ -2,6 +2,39 @@
  * Created by Peter on 14-3-17.
  */
 
+var svg;
+
+var data;
+
+var margin = {top: 20, right: 20, bottom: 30, left: 90},
+    width = 800 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+var radius = Math.min(width, height) / 3;
+
+var color = d3.scale.category20();
+
+var pie = d3.layout.pie()
+    .value(function (d) {
+        return d.revenue;
+    })
+    .sort(null);
+
+var arc = d3.svg.arc()
+    .innerRadius(radius - 100)
+    .outerRadius(radius - 20);
+
+//0:revenue
+//1:tuition
+//2:total enrollment
+//3:all employees
+
+var opt = 0;
+
+//add the tooltip area to the webpage
+var tooltip = d3.select("#main").append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
 
 
 
@@ -15,7 +48,23 @@ function pieform(){
     document.getElementById("selection").innerHTML=text;
 }
 
+
+
+function createPieSvg() {
+    svg = d3.select("#main").append("svg")
+        .attr("id", "mainsvg")
+        .attr("width", 800)
+        .attr("height", 500)
+        .append("g")
+        .attr("transform", "translate(" + 800 / 2 + "," + 500 / 2 + ")");
+}
+
 function piechart(){
+
+
+    pieform();
+    createPieSvg();
+
     d3.csv("data/pie.csv", type, function(error, data) {
 
 
