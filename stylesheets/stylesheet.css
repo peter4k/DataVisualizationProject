@@ -269,7 +269,7 @@ Full-Width Styles
   margin: 0 auto;
 }
 
-.svg {
+svg {
     position: relative;
     max-width: 800px;
     padding: 20px 10px;
