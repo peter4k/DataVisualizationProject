@@ -18,6 +18,7 @@
 <script src="alex/d3.min.js"></script>
 <script src="javascripts/scatterplot.js"></script>
 <script src="javascripts/piechart.js"></script>
+<script src="javascripts/scatterplotMatrix.js"></script>
 
 
 <!-- HEADER -->
@@ -36,6 +37,7 @@
         <form>
             <label><input id="pieradio" type="radio" name="dataset" value="scatterplot" checked> Scatter plot</label>
             <label><input id="pieradio" type="radio" name="dataset" value="pie"> Pie Chart</label>
+            <label><input id="pieradio" type="radio" name="dataset" value="spm"> Scatterplot Matrix</label>
         </form>
         <hr/>
 
@@ -56,6 +58,10 @@
                 if (value == "scatterplot") {
                     deleteSvg();
                     scatterplot();
+                }
+                if (value == "spm") {
+                    deleteSvg();
+                    createSPM();
                 }
             }
 
