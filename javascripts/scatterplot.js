@@ -43,37 +43,20 @@ function scatterplot(){
 
     console.log(width);
     // load data from file
-    d3.csv("data/top50with5categories.csv", function(error, dataset) {
-
-        // ensures data from csv is interpreted as int
-        dataset.forEach(function(d) {
-            d.tuition03_tf = +d.tuition03_tf;
-            d.tot_rev_w_auxother_sum = +d.tot_rev_w_auxother_sum;
-            d.control = +d.control;
-            d.total_enrollment = +d.total_enrollment;
-            d.all_employees = +d.all_employees;
-        });
-
-    data = dataset;
 
         createSPSvg();
         spform();
-
-    updateChart(data);
-    });
-
-
 
 }
 
 
 function createSPSvg() {
-    svg = d3.select("#main").append("svg")
+    svg = d3.select("#svgtd").append("svg")
         .attr("id", "mainsvg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
-        .attr("transform", "translate(200," + margin.top + ")");
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 }
 
 function updateChart(data)
