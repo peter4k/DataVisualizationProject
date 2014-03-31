@@ -1,5 +1,6 @@
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 var width = 1400,
 height = 500;
 
@@ -15,6 +16,8 @@ var svg = d3.select("body").append("svg")
 .attr("height", height);
 
 =======
+=======
+>>>>>>> FETCH_HEAD
 var margin = {top: 20, right: 20, bottom: 30, left: 90},
     width = 1400 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
@@ -27,6 +30,9 @@ var projection = d3.geo.albersUsa()
 
 var path = d3.geo.path()
     .projection(projection);
+<<<<<<< HEAD
+>>>>>>> FETCH_HEAD
+=======
 >>>>>>> FETCH_HEAD
 
 var color = d3.scale.linear()
@@ -36,10 +42,13 @@ var color = d3.scale.linear()
 var opt = 0;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Drawmap();
 
 function Drawmap(){
 =======
+=======
+>>>>>>> FETCH_HEAD
 //0 revenue
 //1 all employees
 
@@ -76,6 +85,9 @@ function Drawmap(){
     mapform();
     createMapSvg();
     
+<<<<<<< HEAD
+>>>>>>> FETCH_HEAD
+=======
 >>>>>>> FETCH_HEAD
     d3.csv("data/map.csv", function(error, data) {
            
@@ -138,17 +150,23 @@ function Drawmap(){
                                     .attr("text-anchor","middle")
                                     .attr("font-weight","bold");
 <<<<<<< HEAD
+<<<<<<< HEAD
                                     }
                                     
                                     });
                        })
                    .on("mouseout",function(){
 =======
+=======
+>>>>>>> FETCH_HEAD
                                     }     
                                     
                                     });
                        })
                    .on("mouseout",function(){ 
+<<<<<<< HEAD
+>>>>>>> FETCH_HEAD
+=======
 >>>>>>> FETCH_HEAD
                        
                        svg.selectAll(".name").remove();
@@ -156,7 +174,11 @@ function Drawmap(){
                    
                    d3.selectAll("input")
 <<<<<<< HEAD
+<<<<<<< HEAD
                    .on("change", change);
+=======
+                   .on("change", change); 
+>>>>>>> FETCH_HEAD
 =======
                    .on("change", change); 
 >>>>>>> FETCH_HEAD
@@ -165,6 +187,7 @@ function Drawmap(){
                    var value = this.value;
                    if(value == "revenue"){ opt = 0;}
                    if(value == "all_employees"){ opt = 1;}
+<<<<<<< HEAD
 <<<<<<< HEAD
                    Drawmap();
                    };
@@ -178,6 +201,8 @@ function Drawmap(){
 
 d3.select(self.frameElement).style("height", height + "px");
 =======
+=======
+>>>>>>> FETCH_HEAD
                    Drawmap(); 
                    };
                 });  //json
@@ -185,4 +210,7 @@ d3.select(self.frameElement).style("height", height + "px");
 }
 
 d3.select(self.frameElement).style("height", height + "px");
+<<<<<<< HEAD
+>>>>>>> FETCH_HEAD
+=======
 >>>>>>> FETCH_HEAD
