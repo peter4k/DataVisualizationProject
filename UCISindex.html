@@ -20,8 +20,6 @@
 <script src="javascripts/piechart.js"></script>
 <script src="javascripts/scatterplotMatrix.js"></script>
 <script src="javascripts/line.js"></script>
-<script src="javascripts/map.js"></script>
-<script src="http://d3js.org/topojson.v1.min.js"></script>
 
 
 <!-- HEADER -->
@@ -76,7 +74,7 @@
                 }
             }
 
-            Drawmap();
+            scatterplot();
 
             function deleteSvg() {
                 d3.select("#mainsvg").remove();
