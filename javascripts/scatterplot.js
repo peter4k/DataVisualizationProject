@@ -37,7 +37,11 @@ var yValue = function (d) {
     yAxis = d3.svg.axis().scale(yScale).orient("left");
 
 function scatterplot(){
+    margin = {top: 20, right: 20, bottom: 30, left: 90},
+    width = 800 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
 
+    console.log(width);
     // load data from file
     d3.csv("data/top50with5categories.csv", function(error, dataset) {
 
@@ -69,7 +73,7 @@ function createSPSvg() {
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        .attr("transform", "translate(200," + margin.top + ")");
 }
 
 function updateChart(data)
