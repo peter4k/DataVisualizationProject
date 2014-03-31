@@ -40,6 +40,7 @@
             <label><input id="pieradio" type="radio" name="dataset" value="pie"> Pie Chart</label>
             <label><input id="pieradio" type="radio" name="dataset" value="spm"> Scatterplot Matrix</label>
             <label><input id="pieradio" type="radio" name="dataset" value="lines"> Multiply Line Chart</label>
+            <label><input id="pieradio" type="radio" name="dataset" value="map"> map</label>
         </form>
         <hr/>
 
@@ -94,6 +95,9 @@
                 if (value == "spm") {
                     deleteSvg();
                     createSPM();
+                }
+                if (value == "map") {
+                    window.location.href="http://azepeda2.github.io/DataVisualizationProject/MAP.html";
                 }
             }
 
