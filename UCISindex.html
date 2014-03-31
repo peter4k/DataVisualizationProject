@@ -18,7 +18,10 @@
 <script src="alex/d3.min.js"></script>
 <script src="javascripts/scatterplot.js"></script>
 <script src="javascripts/piechart.js"></script>
+<script src="javascripts/scatterplotMatrix.js"></script>
 <script src="javascripts/line.js"></script>
+<script src="javascripts/map.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
 
 
 <!-- HEADER -->
@@ -37,6 +40,7 @@
         <form>
             <label><input id="pieradio" type="radio" name="dataset" value="scatterplot" checked> Scatter plot</label>
             <label><input id="pieradio" type="radio" name="dataset" value="pie"> Pie Chart</label>
+            <label><input id="pieradio" type="radio" name="dataset" value="spm"> Scatterplot Matrix</label>
              <label><input id="pieradio" type="radio" name="dataset" value="lines"> Multiply Line Chart</label>
         </form>
         <hr/>
@@ -66,9 +70,13 @@
                     deleteSvg();
                     scatterplot();
                 }
+                if (value == "spm") {
+                    deleteSvg();
+                    createSPM();
+                }
             }
 
-            scatterplot();
+            Drawmap();
 
             function deleteSvg() {
                 d3.select("#mainsvg").remove();

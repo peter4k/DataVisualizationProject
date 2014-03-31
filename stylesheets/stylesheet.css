@@ -294,6 +294,39 @@ svg {
     pointer-events: none;
 }
 
+.spmaxis,
+
+.frame {
+    shape-rendering: crispEdges;
+}
+
+.spmaxis line {
+    stroke: #ddd;
+}
+
+.spmaxis path {
+    display: none;
+}
+
+.frame {
+    fill: none;
+    stroke: #aaa;
+}
+
+circle {
+    fill-opacity: .7;
+}
+
+circle.hidden {
+    fill: #ccc !important;
+}
+
+.extent {
+    fill: #000;
+    fill-opacity: .125;
+    stroke: #fff;
+}
+
 #forkme_banner {
   display: block;
   position: absolute;
