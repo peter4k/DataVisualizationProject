@@ -232,7 +232,7 @@ hr {
 }
 
 table {
-  border: 1px solid #373737;
+  border: 0px;
   margin-bottom: 20px;
   text-align: left;
  }
@@ -264,9 +264,67 @@ Full-Width Styles
 
 .inner {
   position: relative;
-  max-width: 640px;
+  max-width: 800px;
   padding: 20px 10px;
   margin: 0 auto;
+}
+
+svg {
+    position: relative;
+    max-width: 800px;
+    padding: 20px 10px;
+    margin: 0 auto;
+    font: 11px sans-serif;
+}
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+.dot {
+    stroke: #000;
+}
+
+.tooltip {
+    position: absolute;
+    width: 200px;
+    height: 28px;
+    pointer-events: none;
+}
+
+.spmaxis,
+
+.frame {
+    shape-rendering: crispEdges;
+}
+
+.spmaxis line {
+    stroke: #ddd;
+}
+
+.spmaxis path {
+    display: none;
+}
+
+.frame {
+    fill: none;
+    stroke: #aaa;
+}
+
+circle {
+    fill-opacity: .7;
+}
+
+circle.hidden {
+    fill: #ccc !important;
+}
+
+.extent {
+    fill: #000;
+    fill-opacity: .125;
+    stroke: #fff;
 }
 
 #forkme_banner {

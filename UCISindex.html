@@ -69,6 +69,7 @@
 
         <script>
 
+            var selecteddata;
             var data;
             var schoolnames = new Array();
 
@@ -101,7 +102,7 @@
                 }
             }
 
-//            selectData();
+            selectData();
             scatterplot();
 
             function deleteSvg() {
@@ -148,9 +149,9 @@
                     });
 
                     console.log(tempdata.length);
-                    data = tempdata;
+                    selecteddata = tempdata;
 
-                    updateChart(data);
+                    updateChart(selecteddata);
                 });
             }
 
