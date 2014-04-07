@@ -20,6 +20,7 @@
 <script src="javascripts/piechart.js"></script>
 <script src="javascripts/scatterplotMatrix.js"></script>
 <script src="javascripts/line.js"></script>
+<script src="javascripts/bar.js"></script>
 
 
 <!-- HEADER -->
@@ -40,6 +41,7 @@
             <label><input id="pieradio" type="radio" name="dataset" value="pie"> Pie Chart</label>
             <label><input id="pieradio" type="radio" name="dataset" value="spm"> Scatterplot Matrix</label>
             <label><input id="pieradio" type="radio" name="dataset" value="lines"> Multiply Line Chart</label>
+            <label><input id="pieradio" type="radio" name="dataset" value="bar"> bar Chart</label>
             <label><input id="pieradio" type="radio" name="dataset" value="map"> map</label>
         </form>
         <hr/>
@@ -88,7 +90,6 @@
                     deleteSvg();
                     piechart();
                 }
-
                 if (value == "scatterplot") {
                     deleteSvg();
                     scatterplot();
@@ -97,6 +98,10 @@
                     deleteSvg();
                     createSPM();
                 }
+                if (value == "bar") {
+                    deleteSvg();
+                    barChart();
+                }
                 if (value == "map") {
                     window.location.href="http://azepeda2.github.io/DataVisualizationProject/MAP.html";
                 }
@@ -104,6 +109,7 @@
 
             selectData();
             scatterplot();
+//            barChart();
 
             function deleteSvg() {
                 d3.select("#mainsvg").remove();
@@ -151,7 +157,7 @@
                     console.log(tempdata.length);
                     selecteddata = tempdata;
 
-                    updateChart(selecteddata);
+                    updatedSelected();
                 });
             }
 
@@ -165,7 +171,6 @@
                 }
                 document.getElementById("selectedschools").innerHTML = text;
                 loadData();
-                updateChart(data);
             }
 
         </script>

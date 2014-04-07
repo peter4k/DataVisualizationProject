@@ -119,7 +119,38 @@ function updateChart(data)
                 .duration(500)
                 .style("opacity", 0);
         });
+
 };
+
+function updatedSelected(){
+
+    svg.selectAll(".dot")
+        .data(selecteddata)
+        .enter().append("circle")
+        .attr("class", "dot")
+        .attr("r", 3.5)
+        .attr("cx", xMap)
+        .attr("cy", yMap)
+        .style("fill", "red")
+        .on("mouseover", function(d) {
+            tooltip.transition()
+                .duration(200)
+                .style("opacity", .9)
+                .style("color", "black");
+            tooltip.html(d["instname"] + "<br/> Tuition: $" + d["tuition03_tf"]
+                + "<br/> Revenue: $" + d["tot_rev_w_auxother_sum"]
+                + "<br/> Control: " + d["control"]
+                + "<br/> Total Enrollment: " + d["total_enrollment"]
+                + "<br/> Total Employees: " + d["all_employees"])
+                .style("left", (d3.event.pageX + 5) + "px")
+                .style("top", (d3.event.pageY - 28) + "px");
+        })
+        .on("mouseout", function(d) {
+            tooltip.transition()
+                .duration(500)
+                .style("opacity", 0);
+        });
+}
 
 function chooseCategory()
 {
@@ -140,7 +171,6 @@ function chooseCategory()
         .exit()
         .remove();
     updateChart(data);
-
 }
 
 function spform(){

@@ -18,7 +18,7 @@ var tooltip = d3.select("#main").append("div")
 .style("opacity", 0);
 
 function createLinesSvg() {
-    svg = d3.select("#main").append("svg")
+    svg = d3.select("#svgtd").append("svg")
     .attr("id", "mainsvg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)

@@ -283,6 +283,19 @@ svg {
     shape-rendering: crispEdges;
 }
 
+.bar {
+    fill: steelblue;
+}
+.barx.axis{
+    writing-mode: tb-rl;
+    align: left;
+    /*-webkit-transform: rotate(90deg);*/
+    /*-moz-transform: rotate(90deg);*/
+    /*-ms-transform: rotate(90deg);*/
+    /*-o-transform: rotate(90deg);*/
+    transform: rotate(90deg);
+    position: absolute;
+}
 .dot {
     stroke: #000;
 }

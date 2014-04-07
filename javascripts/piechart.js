@@ -51,7 +51,7 @@ function pieform(){
 
 
 function createPieSvg() {
-    svg = d3.select("#main").append("svg")
+    svg = d3.select("#svgtd").append("svg")
         .attr("id", "mainsvg")
         .attr("width", 800)
         .attr("height", 500)
