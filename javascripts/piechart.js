@@ -161,7 +161,7 @@ function piechart(){
                         .attr("transform", arc.centroid(d))
                         .attr("dy", ".5em")
                         .style("text-anchor", "middle")
-                        .attr("y",height/2-100)
+                        .attr("y",height/2-400)
                         .text(d.data.all_employees)
                         .style("font-size","15px")
                         .attr("font-family","serif")
