@@ -113,7 +113,7 @@ function piechart(){
                     .text(d.data.instname)
                     .style("font-size","15px")
                     .attr("font-family","serif")
-                    .attr("y",height/2-100)
+                    .attr("y",height/2-80)
                     .attr("font-weight","bold");
 
                 if(opt==0){
@@ -122,7 +122,7 @@ function piechart(){
                         .attr("transform", arc.centroid(d))
                         .attr("dy", ".5em")
                         .style("text-anchor", "middle")
-                        .attr("y",height/2-600)
+                        .attr("y",height/2-400)
                         .text("$ "+d.data.revenue)
                         .style("font-size","15px")
                         .attr("font-family","serif")
@@ -134,7 +134,7 @@ function piechart(){
                         .attr("transform", arc.centroid(d))
                         .attr("dy", ".5em")
                         .style("text-anchor", "middle")
-                        .attr("y",height/2-600)
+                        .attr("y",height/2-400)
                         .text("$ "+d.data.tuition)
                         .style("font-size","15px")
                         .attr("font-family","serif")
@@ -148,7 +148,7 @@ function piechart(){
                         .attr("transform", arc.centroid(d))
                         .attr("dy", ".5em")
                         .style("text-anchor", "middle")
-                        .attr("y",height/2-500)
+                        .attr("y",height/2-400)
                         .text(d.data.total_enrollment)
                         .style("font-size","15px")
                         .attr("font-family","serif")
