@@ -21,7 +21,6 @@ var pie = d3.layout.pie()
     .sort(null);
 
 var arc = d3.svg.arc()
-    .innerRadius(radius - 100)
     .outerRadius(radius - 20);
 
 //0:revenue
@@ -114,7 +113,7 @@ function piechart(){
                     .text(d.data.instname)
                     .style("font-size","15px")
                     .attr("font-family","serif")
-                    .attr("text-anchor","middle")
+                    .attr("y",height/2-100)
                     .attr("font-weight","bold");
 
                 if(opt==0){
@@ -123,11 +122,10 @@ function piechart(){
                         .attr("transform", arc.centroid(d))
                         .attr("dy", ".5em")
                         .style("text-anchor", "middle")
-                        .attr("y",height/2-400)
+                        .attr("y",height/2-600)
                         .text("$ "+d.data.revenue)
                         .style("font-size","15px")
                         .attr("font-family","serif")
-                        .attr("text-anchor","middle")
                         .attr("font-weight","bold");
                 }
                 if(opt==1){
@@ -136,11 +134,10 @@ function piechart(){
                         .attr("transform", arc.centroid(d))
                         .attr("dy", ".5em")
                         .style("text-anchor", "middle")
-                        .attr("y",height/2-400)
+                        .attr("y",height/2-600)
                         .text("$ "+d.data.tuition)
                         .style("font-size","15px")
                         .attr("font-family","serif")
-                        .attr("text-anchor","middle")
                         .attr("font-weight","bold");
 
                 }
@@ -151,11 +148,10 @@ function piechart(){
                         .attr("transform", arc.centroid(d))
                         .attr("dy", ".5em")
                         .style("text-anchor", "middle")
-                        .attr("y",height/2-400)
+                        .attr("y",height/2-500)
                         .text(d.data.total_enrollment)
                         .style("font-size","15px")
                         .attr("font-family","serif")
-                        .attr("text-anchor","middle")
                         .attr("font-weight","bold");
                 }
                 if(opt==3){
@@ -165,7 +161,7 @@ function piechart(){
                         .attr("transform", arc.centroid(d))
                         .attr("dy", ".5em")
                         .style("text-anchor", "middle")
-                        .attr("y",height/2-400)
+                        .attr("y",height/2-100)
                         .text(d.data.all_employees)
                         .style("font-size","15px")
                         .attr("font-family","serif")
@@ -230,6 +226,6 @@ function arcTween(a) {
 
 function get_location(d,i){
     var x = -500;
-    var y = -300 + (48 * i);
+    var y = -200 + (48 * i);
     return "translate(" + [x, y] + ")";
 }

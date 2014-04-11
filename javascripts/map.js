@@ -1,6 +1,4 @@
-
-
-ar width = 1400,
+var width = 1400,
 height = 500;
 
 var projection = d3.geo.albersUsa()
@@ -20,10 +18,10 @@ var color = d3.scale.linear()
 
 var opt = 0;
 
-
 Drawmap();
 
 function Drawmap(){
+    
     
     
     d3.csv("map.csv", function(error, data) {
@@ -120,4 +118,3 @@ function Drawmap(){
 
 
 d3.select(self.frameElement).style("height", height + "px");
-
