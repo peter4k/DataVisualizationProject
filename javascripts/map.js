@@ -1,6 +1,5 @@
 
-
-ar width = 1400,
+var width = 1400,
 height = 500;
 
 var projection = d3.geo.albersUsa()
