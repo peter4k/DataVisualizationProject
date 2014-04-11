@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> FETCH_HEAD
 var width = 1400,
 height = 500;
 
