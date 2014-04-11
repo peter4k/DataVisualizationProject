@@ -1,6 +1,6 @@
 
 
-var width = 1400,
+ar width = 1400,
 height = 500;
 
 var projection = d3.geo.albersUsa()
@@ -12,26 +12,34 @@ var path = d3.geo.path()
 
 var svg = d3.select("body").append("svg")
 .attr("width", width)
-.attr("height", height);
-
+.attr("height", height);;
 
 var color = d3.scale.linear()
-.domain([0, 0.5])
-.range(["grey", "green"]);
+.domain([0,0.01, 0.03])
+.range(["yellow","orange", "red"]);
 
 var opt = 0;
+
 
 Drawmap();
 
 function Drawmap(){
-    d3.csv("data/map.csv", function(error, data) {
+    
+    
+    d3.csv("map.csv", function(error, data) {
+           
+           data.forEach(function(d) {
+                        d.all_employees = +d.all_employees;
+                        d.revenue = +d.revenue;
+                        });
+           
            
            if(opt == 0){
            var total_value = d3.sum(data, function(n) { return n.revenue; });
            } else if (opt == 1) {
            var total_value = d3.sum(data, function(n) { return n.all_employees; });
            }
-           d3.json("json/us.json", function(error, topology) {
+           d3.json("us.json", function(error, topology) {
                    
                    svg.selectAll("path")
                    .data(topojson.feature(topology, topology.objects.subunit).features)
@@ -44,10 +52,10 @@ function Drawmap(){
                    .style("fill",function(d){
                           
                           
-                          var local_value = 0;
+                          var local_value = 0.0;
                           data.forEach(function(m){
                                        
-                                       if(d.properties.name == m.state) {
+                                       if(m.state == d.properties.name) {
                                        
                                        if(opt==0){
                                        local_value = local_value + m.revenue;
@@ -84,23 +92,24 @@ function Drawmap(){
                                     .attr("font-family","serif")
                                     .attr("text-anchor","middle")
                                     .attr("font-weight","bold");
-                                    }
+                                    }     
                                     
                                     });
                        })
-                   .on("mouseout",function(){
+                   .on("mouseout",function(){ 
                        
                        svg.selectAll(".name").remove();
                        });
                    
                    d3.selectAll("input")
-                   .on("change", change);
+                   .on("change", change); 
                    
                    function change() {
                    var value = this.value;
                    if(value == "revenue"){ opt = 0;}
                    if(value == "all_employees"){ opt = 1;}
-                   Drawmap();
+                   
+                   Drawmap(); 
                    };
                    
                    
