@@ -180,7 +180,7 @@ function spform(){
         '<select id="xList" onchange="chooseCategory()">'+
             '<option value="tuition03_tf">Tuition</option>'+
             '<option value="tot_rev_w_auxother_sum">Total Revenue</option>'+
-    '<option value="control">Control</option>'+
+    //'<option value="control">Control</option>'+
     '<option value="total_enrollment">Total Enrollment</option>'+
     '<option value="all_employees">Employees</option>'+
     '</select>'+
@@ -188,7 +188,7 @@ function spform(){
         '<select id="yList" onchange="chooseCategory()">'+
     '<option value="tuition03_tf">Tuition</option>'+
     '<option value="tot_rev_w_auxother_sum">Total Revenue</option>'+
-    '<option value="control">Control</option>'+
+    //'<option value="control">Control</option>'+
     '<option value="total_enrollment">Total Enrollment</option>'+
     '<option value="all_employees">Employees</option>'+
     '</select>'+
