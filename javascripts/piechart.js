@@ -1,7 +1,3 @@
-/**
- * Created by Peter on 14-3-17.
- */
-
 var svg;
 
 var data;
