@@ -437,6 +437,16 @@ circle.hidden {
   background: #212121;
 }
 
+.line {
+  fill: none;
+  stroke: lightgrey;
+  stroke-width: 1.5px;
+}
+.tmpline {
+  fill: none;
+  stroke: black;
+  stroke-width: 1.5px;
+}
 
 
 /*******************************************************************************
