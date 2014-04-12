@@ -12,7 +12,6 @@ var margin = {top: 20, right: 20, bottom: 30, left: 90},
 
 var radius = Math.min(width, height) / 3;
 
-var color = d3.scale.category20();
 
 var pie = d3.layout.pie()
     .value(function (d) {
@@ -29,6 +28,8 @@ var arc = d3.svg.arc()
 //3:all employees
 
 var opt = 0;
+
+var pie_color = ["#a6cee3","#1f78b4","#b2df8a","#33a02c","#fb9a99","#e31a1c","#fdbf6f","#ff7f00","#cab2d6","#6a3d9a"];
 
 //add the tooltip area to the webpage
 var tooltip = d3.select("#main").append("div")
@@ -63,6 +64,7 @@ function piechart(){
 
     pieform();
     createPieSvg();
+    
 
     d3.csv("data/pie.csv", type, function(error, data) {
 
@@ -83,7 +85,7 @@ function piechart(){
                 "rx": 5,
                 "ry": 5
             })
-            .style("fill", function(d,i){return  color(i)})
+           .style("fill", function(d,i){return pie_color[i];})
 
         var text_content = blocks.append("text")
             .attr({x:113, y:14})
@@ -100,7 +102,7 @@ function piechart(){
         var path = svg.datum(data).selectAll("path")
             .data(pie)
             .enter().append("path")
-            .attr("fill", function(d, i) { return color(i); })
+            .attr("fill", function(d, i) { return pie_color[i];})
             .attr("d", arc)
             .each(function(d) { this._current = d; }) // store the initial angles
             .on("mouseenter", function(d){
