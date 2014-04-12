@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 
->>>>>>> FETCH_HEAD
 var width = 1400,
 height = 500;
 
@@ -16,7 +13,7 @@ var svg = d3.select("body").append("svg")
 .attr("width", width)
 .attr("height", height);;
 
-var color = d3.scale.linear()
+var map_color = d3.scale.linear()
 .domain([0,0.01, 0.03])
 .range(["yellow","orange", "red"]);
 
@@ -28,12 +25,17 @@ function Drawmap(){
     
     
     
-    d3.csv("map.csv", function(error, data) {
+    d3.csv("data/mapgps.csv", function(error, data) {
            
            data.forEach(function(d) {
                         d.all_employees = +d.all_employees;
                         d.revenue = +d.revenue;
+                        d.LONGITUD = +d.LONGITUD;
+                        d.LATITUDE = +d.LATITUDE;
                         });
+           
+           
+           
            
            
            if(opt == 0){
@@ -41,7 +43,7 @@ function Drawmap(){
            } else if (opt == 1) {
            var total_value = d3.sum(data, function(n) { return n.all_employees; });
            }
-           d3.json("us.json", function(error, topology) {
+           d3.json("json/us.json", function(error, topology) {
                    
                    svg.selectAll("path")
                    .data(topojson.feature(topology, topology.objects.subunit).features)
@@ -70,12 +72,12 @@ function Drawmap(){
                           
                           if(local_value == 0) {
                           
-                          return color(0);
+                          return map_color(0);
                           
                           } else {
                           //98,251,152
                           var num = local_value/total_value;
-                          return color(num);
+                          return map_color(num);
                           }
                           })
                    .on("mouseenter", function(d){
@@ -103,8 +105,19 @@ function Drawmap(){
                        svg.selectAll(".name").remove();
                        });
                    
+                   
+                   svg.selectAll(".points")
+                   .data(data)
+                   .enter()
+                   .append("circle",".pin")
+                   .attr("r",4)
+                   .attr("fill", "black")
+                   .attr("transform", function(d) {return "translate(" + projection([d.LONGITUD,d.LATITUDE]) + ")";});
+                   
+                   
                    d3.selectAll("input")
-                   .on("change", change); 
+                   .on("change", change);
+                   
                    
                    function change() {
                    var value = this.value;
@@ -112,13 +125,12 @@ function Drawmap(){
                    if(value == "all_employees"){ opt = 1;}
                    
                    Drawmap(); 
-                   };
-                   
-                   
+                   }
+      
                    });  //json
            }); //csv
-};
-
+}
 
 
 d3.select(self.frameElement).style("height", height + "px");
+
