@@ -143,10 +143,11 @@ function line(){
            
            .on("mouseenter", function(d){
                
-               
-               
+               svg.selectAll(".tmpline").remove();
+               svg.selectAll(".detail").remove();
+               svg.selectAll(".c1").remove();
                text = svg.append("text")
-               .attr("class","name")
+               .attr("class","detail")
                .attr("dy", ".5em")
                .attr("x",750)
                .attr("y",100)
@@ -156,7 +157,7 @@ function line(){
                .attr("text-anchor","middle")
                .attr("font-weight","bold");
                value1 = svg.append("text")
-               .attr("class","revenue")
+               .attr("class","detail")
                .attr("dy", ".5em")
                .attr("x",750)
                .attr("y",140)
@@ -166,7 +167,7 @@ function line(){
                .attr("text-anchor","middle")
                .attr("font-weight","bold");
                value2 = svg.append("text")
-               .attr("class","tuition")
+               .attr("class","detail")
                .attr("dy", ".5em")
                .attr("x",750)
                .attr("y",180)
@@ -176,7 +177,7 @@ function line(){
                .attr("text-anchor","middle")
                .attr("font-weight","bold");
                value3 = svg.append("text")
-               .attr("class","enrollment")
+               .attr("class","detail")
                .attr("dy", ".5em")
                .attr("x",750)
                .attr("y",220)
@@ -186,7 +187,7 @@ function line(){
                .attr("text-anchor","middle")
                .attr("font-weight","bold");
                value4 = svg.append("text")
-               .attr("class","employees")
+               .attr("class","detail")
                .attr("dy", ".5em")
                .attr("x",750)
                .attr("y",260)
@@ -328,5 +329,6 @@ function line(){
            
            
            });
+
     
 }
