@@ -127,6 +127,20 @@ function piechart(){
                         .style("font-size","15px")
                         .attr("font-family","serif")
                         .attr("font-weight","bold");
+                
+                per = svg.append("text")
+                .attr("class","per")
+                .attr("transform", arc.centroid(d))
+                .attr("dy", ".5em")
+                .style("text-anchor", "middle")
+                .attr("y",height/2-380)
+                .text(d3.round(100*(d.data.revenue/d3.sum(data, function(d) { return d.revenue; })))+"%")
+                .style("font-size","15px")
+                .attr("font-family","serif")
+                .attr("text-anchor","middle")
+                .attr("font-weight","bold");
+                
+                
                 }
                 if(opt==1){
                     value = svg.append("text")
@@ -139,6 +153,18 @@ function piechart(){
                         .style("font-size","15px")
                         .attr("font-family","serif")
                         .attr("font-weight","bold");
+                
+                per = svg.append("text")
+                .attr("class","per")
+                .attr("transform", arc.centroid(d))
+                .attr("dy", ".5em")
+                .style("text-anchor", "middle")
+                .attr("y",height/2-380)
+                .text(d3.round(100*(d.data.tuition/d3.sum(data, function(d) { return d.tuition; })))+"%")
+                .style("font-size","15px")
+                .attr("font-family","serif")
+                .attr("text-anchor","middle")
+                .attr("font-weight","bold");
 
                 }
                 if(opt==2){
@@ -153,6 +179,20 @@ function piechart(){
                         .style("font-size","15px")
                         .attr("font-family","serif")
                         .attr("font-weight","bold");
+                
+                per = svg.append("text")
+                .attr("class","per")
+                .attr("transform", arc.centroid(d))
+                .attr("dy", ".5em")
+                .style("text-anchor", "middle")
+                .attr("y",height/2-380)
+                .text(d3.round(100*(d.data.total_enrollment/d3.sum(data, function(d) { return d.total_enrollment; })))+"%")
+                .style("font-size","15px")
+                .attr("font-family","serif")
+                .attr("text-anchor","middle")
+                .attr("font-weight","bold");
+                
+                
                 }
                 if(opt==3){
 
@@ -167,6 +207,21 @@ function piechart(){
                         .attr("font-family","serif")
                         .attr("text-anchor","middle")
                         .attr("font-weight","bold");
+                
+                
+                per = svg.append("text")
+                .attr("class","per")
+                .attr("transform", arc.centroid(d))
+                .attr("dy", ".5em")
+                .style("text-anchor", "middle")
+                .attr("y",height/2-380)
+                .text(d3.round(100*(d.data.all_employees/d3.sum(data, function(d) { return d.all_employees; })))+"%")
+                .style("font-size","15px")
+                .attr("font-family","serif")
+                .attr("text-anchor","middle")
+                .attr("font-weight","bold");
+                
+                
                 }
 
 
@@ -174,6 +229,7 @@ function piechart(){
             .on("mouseout",function(d){
                 text.remove();
                 value.remove();
+                per.remove();
             });
 
 
