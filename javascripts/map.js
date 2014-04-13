@@ -17,6 +17,56 @@ var map_color = d3.scale.linear()
 .domain([0,0.01, 0.03])
 .range(["yellow","orange", "red"]);
 
+var bar_data = d3.range(10);
+
+
+var gradient = svg.append("linearGradient")
+.attr("y1", 10)
+.attr("y2", 150)
+.attr("x1", "0")
+.attr("x2", "0")
+.attr("id", "gradient")
+.attr("gradientUnits", "userSpaceOnUse");
+
+gradient.append("stop")
+.attr("offset", "0")
+.attr("stop-color", "red");
+
+gradient.append("stop")
+.attr("offset", "0.8")
+.attr("stop-color", "yellow");
+
+svg.selectAll("rect")
+.data(bar_data)
+.enter()
+.append("rect")
+.attr("x", 180)
+.attr("y", 10)
+.attr("width", 20)
+.attr("height", 120)
+.attr("fill", "url(#gradient)");
+
+svg.append("text")
+.attr("class","bar")
+.attr("dy", ".5em")
+.attr("x",220)
+.attr("y",10)
+.text("High")
+.attr("font-family","serif")
+.attr("text-anchor","middle")
+.attr("font-weight","bold");
+
+svg.append("text")
+.attr("class","bar")
+.attr("dy", ".5em")
+.attr("x",220)
+.attr("y",130)
+.text("Low")
+.attr("font-family","serif")
+.attr("text-anchor","middle")
+.attr("font-weight","bold");
+
+
 var opt = 0;
 
 Drawmap();
