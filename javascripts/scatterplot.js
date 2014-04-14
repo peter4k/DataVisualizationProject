@@ -69,7 +69,7 @@ function updateChart(data)
     // creating the x-axis
     svg.append("g")
         .attr("class", "x axis")
-        .attr("transform", "translate(0," + height + ")")
+        .attr("transform", "translate(0, 460)")
         .call(xAxis)
         .append("text")
         .attr("class", "label")
@@ -98,7 +98,7 @@ function updateChart(data)
         .attr("r", 3.5)
         .attr("cx", xMap)
         .attr("cy", yMap)
-        .attr("fill", "black")
+        .attr("fill", "#4F4F4F")
         .on("mouseover", function(d) {
             var xPosition = parseFloat(d3.select(this).attr("cx"));
             var yPosition = parseFloat(d3.select(this).attr("cy"));
@@ -186,7 +186,7 @@ function transformChart(data){
     // creating the x-axis
     svg.append("g")
         .attr("class", "x axis")
-        .attr("transform", "translate(0," + height + ")")
+        .attr("transform", "translate(0,460)")
         .call(xAxis)
         .append("text")
         .attr("class", "label")
@@ -226,10 +226,10 @@ function transformChart(data){
             }
             else{
                 if(spcontrol == 0)
-                return "black";
+                return "#4F4F4F";
                 else{
                     if(d.control == 1)
-                    return "black";
+                    return "#4F4F4F";
                     else
                     return "blue";
                 }
