@@ -2,6 +2,14 @@
 <html>
 
 <head>
+
+    <style type="text/css">
+        table,th,td
+        {
+            border:0px solid blue;
+        }
+    </style>
+
     <meta charset='utf-8'/>
     <meta http-equiv="X-UA-Compatible" content="chrome=1"/>
     <meta name="description" content="Datavisualizationproject : cs490/cs690"/>
@@ -93,6 +101,7 @@
                 if (value == "scatterplot") {
                     deleteSvg();
                     scatterplot();
+                    updateChart(data);
                 }
                 if (value == "spm") {
                     deleteSvg();
@@ -109,14 +118,12 @@
 
             selectData();
             scatterplot();
-//            barChart();
 
             function deleteSvg() {
                 d3.select("#mainsvg").remove();
             }
 
             function selectData() {
-
                 d3.csv("data/top50with5categories.csv", function (error, dataset) {
 
                     // ensures data from csv is interpreted as int
@@ -129,49 +136,42 @@
                     });
 
                     data = dataset;
-
                     updateChart(data);
-                });
-            }
-
-            function loadData() {
-
-                d3.csv("data/top50with5categories.csv", function (error, dataset) {
-
-                    var tempdata = new Array();
-                    // ensures data from csv is interpreted as int
-                    dataset.forEach(function (d) {
-                        schoolnames.forEach(function (n){
-                            if(d.instname == n){
-                                console.log("yes");
-                                d.tuition03_tf = +d.tuition03_tf;
-                                d.tot_rev_w_auxother_sum = +d.tot_rev_w_auxother_sum;
-                                d.control = +d.control;
-                                d.total_enrollment = +d.total_enrollment;
-                                d.all_employees = +d.all_employees;
-                                tempdata.push(d);
-                            }
-                        })
-                    });
-
-                    console.log(tempdata.length);
-                    selecteddata = tempdata;
-
-                    updatedSelected();
                 });
             }
 
             function search() {
                 var name = schoolname.name.value;
-                schoolnames.push(name);
+                var sfound = 0;
 
-                var text;
-                for (var i = 0; i < schoolnames.length; i++) {
-                    text = text + "<br>" + schoolnames[i];
-                }
-                document.getElementById("selectedschools").innerHTML = text;
-                loadData();
+                d3.csv("data/top50with5categories.csv", function (error, dataset) {
+                    var tempdata = new Array();
+                    // ensures data from csv is interpreted as int
+                    dataset.forEach(function (d) {
+                        if(name == d.instname){
+                            schoolnames.push(name);
+                            sfound = 1;
+                        }
+                    });
+
+                    if(sfound == 1) {
+                        selecteddata = tempdata;
+                        var text = schoolnames[0];
+                        for (var i = 1; i < schoolnames.length; i++) {
+                                text = text + "<br>" + schoolnames[i];
+                        }
+                        document.getElementById("selectedschools").innerHTML = text;
+                        sfound = 0;
+                    }
+                    else{
+                        alert("Cannot find this School");
+                        sfound = 0;
+                    }
+
+                    chooseCategory();
+                });
             }
+
 
         </script>
 
