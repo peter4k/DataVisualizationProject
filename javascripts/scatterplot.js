@@ -170,7 +170,7 @@ function updateChart(data)
             d3.select("#mouseinfotext").remove();
             d3.select("#mouserect").remove();
         });
-
+    transformChart(data);
 };
 
 function transformChart(data){
@@ -214,17 +214,14 @@ function transformChart(data){
         .attr("cx", xMap)
         .attr("cy", yMap)
         .attr("fill", function(d){
-            var color = 0;
+            var spcolor = 0;
             schoolnames.forEach(function(n){
-                console.log(n);
-                console.log(d.instname);
-                console.log(d.instname == n);
                 if(d.instname == n){
-                    console.log("finally");
-                    color = 1;
+                    spcolor = 1;
                 }
             })
-            if(color == 0){
+            console.log(spcolor);
+            if(spcolor == 0){
                 return "black";
             }
             else{
@@ -259,7 +256,7 @@ function spform(){
     var text = '<form>'+
         <!--Select value for x-axis:-->
         '<select id="xList" onchange="chooseCategory()">'+
-            '<option value="tuition03_tf">Tuition</option>'+
+            '<option value="tuition03_tf" selected>Tuition</option>'+
             '<option value="tot_rev_w_auxother_sum">Total Revenue</option>'+
     //'<option value="control">Control</option>'+
     '<option value="total_enrollment">Total Enrollment</option>'+
@@ -268,7 +265,7 @@ function spform(){
     <!--Select value for y-axis:-->
         '<select id="yList" onchange="chooseCategory()">'+
     '<option value="tuition03_tf">Tuition</option>'+
-    '<option value="tot_rev_w_auxother_sum">Total Revenue</option>'+
+    '<option value="tot_rev_w_auxother_sum" selected>Total Revenue</option>'+
     //'<option value="control">Control</option>'+
     '<option value="total_enrollment">Total Enrollment</option>'+
     '<option value="all_employees">Employees</option>'+

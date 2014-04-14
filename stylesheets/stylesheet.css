@@ -250,13 +250,14 @@ Body Style
 Scatterplot Style
 ************************************************************************************************/
 
+
 circle:hover {
     fill: blue;
 }
 
 svg {
     position: relative;
-    max-width: 800px;
+    max-width: 1200px;
     padding: 20px 10px;
     margin: 0 auto;
     font: 11px sans-serif;
@@ -269,16 +270,9 @@ svg {
 }
 
 .bar {
-    fill: steelblue;
 }
 .barx.axis{
     writing-mode: tb-rl;
-    align: left;
-    /*-webkit-transform: rotate(90deg);*/
-    /*-moz-transform: rotate(90deg);*/
-    /*-ms-transform: rotate(90deg);*/
-    /*-o-transform: rotate(90deg);*/
-    transform: rotate(90deg);
     position: absolute;
 }
 
@@ -322,3 +316,77 @@ circle.hidden {
     stroke: #fff;
 }
 
+.smpaxis {
+    shape-rendering: crispEdges;
+}
+
+.smpaxis line {
+    stroke: #ddd;
+    stroke-width: .5px;
+}
+
+.smpaxis path {
+    display: none;
+}
+
+rect.extent {
+    fill: #000;
+    fill-opacity: .125;
+    stroke: #fff;
+}
+
+rect.frame {
+    fill: #fff;
+    fill-opacity: .7;
+    stroke: #aaa;
+}
+
+/*circle {*/
+    /*fill: #ccc;*/
+    /*fill-opacity: .5;*/
+/*}*/
+
+.legend circle {
+    fill-opacity: 1;
+}
+
+.legend text {
+    font-size: 18px;
+    font-style: oblique;
+}
+
+.cell text {
+    pointer-events: none;
+}
+
+.setosa {
+    fill: #800;
+}
+
+.versicolor {
+    fill: #080;
+}
+
+.virginica {
+    fill: #008;
+}
+
+.s1{
+    fill: #800;
+}
+
+.s2{
+    fill: #080;
+}
+
+
+.line {
+    fill: none;
+    stroke: lightgrey;
+    stroke-width: 1.5px;
+}
+.tmpline {
+    fill: none;
+    stroke: black;
+    stroke-width: 1.5px;
+}
