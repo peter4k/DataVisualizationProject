@@ -16,6 +16,7 @@ var xvar = "tuition03_tf",
     xname = "total_enrollment",
     yname = "all_employees";
 
+var spcontrol = 0;
 // setting up x
 var xValue = function (d) {
         return d[xvar];
@@ -220,14 +221,20 @@ function transformChart(data){
                     spcolor = 1;
                 }
             })
-            console.log(spcolor);
-            if(spcolor == 0){
-                return "black";
-            }
-            else{
+            if(spcolor == 1){
                 return "red";
             }
-        });
+            else{
+                if(spcontrol == 0)
+                return "black";
+                else{
+                    if(d.control == 1)
+                    return "black";
+                    else
+                    return "blue";
+                }
+            }
+        })
 }
 
 function chooseCategory()
@@ -251,6 +258,14 @@ function chooseCategory()
     transformChart(data);
 }
 
+function updateControl()
+    {
+        if(document.getElementById('spcheck').checked)
+        spcontrol = 1;
+        else
+        spcontrol = 0;
+        transformChart(data);
+    }
 function spform(){
 
     var text = '<form>'+
@@ -270,6 +285,8 @@ function spform(){
     '<option value="total_enrollment">Total Enrollment</option>'+
     '<option value="all_employees">Employees</option>'+
     '</select>'+
-    '</form>';
+        '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
+        '<input type="checkbox" id="spcheck" name="control" value="control" onclick="updateControl()">Private/public'+
+        '</form>';
     document.getElementById("selection").innerHTML=text;
 }
