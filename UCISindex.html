@@ -156,8 +156,11 @@
                     // ensures data from csv is interpreted as int
                     dataset.forEach(function (d) {
                         if(name == d.instname){
+                                    if(schoolnames.indexOf(name)<0){
                             schoolnames.push(name);
                             sfound = 1;
+                                    } else { sfound = 2 }
+                                    
                         }
                     });
 
@@ -170,10 +173,15 @@
                         document.getElementById("selectedschools").innerHTML = text;
                         sfound = 0;
                     }
-                    else{
+                    else if(sfound == 0){
                         alert("Cannot find this School");
                         sfound = 0;
-                    }
+                       } else if(sfound == 2) {
+                       
+                       alert("You have already entered the University's name");
+                       sfound = 0;
+                       
+                       }
 
                     if(currentChart == "scatterplot"){
                         chooseCategory();
