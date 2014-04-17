@@ -23,7 +23,7 @@ function barChart(){
     var yValue = function(d) { return d[barvar]; }, // data -> value
         yScale = d3.scale.linear().range([height, 0]), // value -> display
         yMap = function(d) { return yScale(yValue(d)); }, // data -> display
-        yAxis = d3.svg.axis().scale(yScale).orient("left").tickFormat(formatPercent);
+        yAxis = d3.svg.axis().scale(yScale).orient("left").tickFormat(getAxisFormat(barvar));
 
     var svg = d3.select("#svgtd").append("svg")
         .attr("id", "mainsvg")

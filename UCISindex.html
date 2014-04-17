@@ -29,6 +29,7 @@
 <script src="javascripts/scatterplotMatrix.js"></script>
 <script src="javascripts/line.js"></script>
 <script src="javascripts/bar.js"></script>
+<script src="javascripts/others.js"></script>
 
 
 <!-- HEADER -->
@@ -120,16 +121,15 @@
                 }
             }
 
-            selectData();
+            loadData();
             deleteSvg();
             scatterplot();
-            updateChart(data);
 
             function deleteSvg() {
                 d3.select("#mainsvg").remove();
             }
 
-            function selectData() {
+            function loadData() {
                 d3.csv("data/top50with5categories.csv", function (error, dataset) {
 
                     // ensures data from csv is interpreted as int
@@ -142,7 +142,8 @@
                     });
 
                     data = dataset;
-                    updateChart(data);
+
+                    callJS();
                 });
             }
 
@@ -185,6 +186,13 @@
             }
 
 
+            function callJS(){
+                switch (currentChart){
+                    case "scatterplot":
+                        updateChart(data);
+                        break;
+                }
+            }
         </script>
 
 

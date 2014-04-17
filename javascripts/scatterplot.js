@@ -13,8 +13,9 @@ var margin = {top: 20, right: 20, bottom: 30, left: 90},
 
 var xvar = "tuition03_tf",
     yvar = "tot_rev_w_auxother_sum",
-    xname = "total_enrollment",
-    yname = "all_employees";
+    xname = "Tuition",
+    yname = "Total Revenue";
+
 
 var spcontrol = 0;
 // setting up x
@@ -25,7 +26,7 @@ var xValue = function (d) {
     xMap = function (d) {
         return xScale(xValue(d));
     },
-    xAxis = d3.svg.axis().scale(xScale).orient("bottom");
+    xAxis;
 
 // setting up y
 var yValue = function (d) {
@@ -35,7 +36,7 @@ var yValue = function (d) {
     yMap = function (d) {
         return yScale(yValue(d));
     },
-    yAxis = d3.svg.axis().scale(yScale).orient("left");
+    yAxis;
 
 function scatterplot(){
     margin = {top: 20, right: 20, bottom: 30, left: 90},
@@ -59,6 +60,8 @@ function createSPSvg() {
 
 function updateChart(data)
 {
+    xAxis = d3.svg.axis().scale(xScale).orient("bottom").tickFormat(getAxisFormat(xvar));
+    yAxis = d3.svg.axis().scale(yScale).orient("left").tickFormat(getAxisFormat(yvar));
     xValue = function(d) {return d[xvar];},
         yValue = function(d) {return d[yvar];},
 
@@ -182,6 +185,10 @@ function transformChart(data){
         // setting up the domain for the x and y-axis
         xScale.domain([0, d3.max(data, xValue) + 1]);
     yScale.domain([0, d3.max(data, yValue) + 1]);
+
+
+    xAxis = d3.svg.axis().scale(xScale).orient("bottom").tickFormat(getAxisFormat(xvar));
+    yAxis = d3.svg.axis().scale(yScale).orient("left").tickFormat(getAxisFormat(yvar));
 
     // creating the x-axis
     svg.append("g")

@@ -30,6 +30,9 @@ function createSPM(){
 
     var color = d3.scale.category10();
 
+    var text = ''
+    document.getElementById("selection").innerHTML=text;
+
     d3.csv("data/top50with5categories.csv", function(flowers) {
 
         // Size parameters.
