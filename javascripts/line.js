@@ -69,15 +69,7 @@ function line(){
            .orient("left").ticks(1);
            
            
-           svg.append("g")
-           .attr("class", "y axis")
-           .call(y1Axis)
-           .append("text")
-           .attr("transform", "translate(0," + height + ")")
-           .attr("y", 6)
-           .attr("dy", ".71em")
-           .style("text-anchor", "end")
-           .text("Revenue");
+          
            
            var int = d3.format("d")
            svg.append("text")
@@ -101,38 +93,7 @@ function line(){
            .text(d3.round(d3.max(data, function(d) { return(d.all_employees/100); })));
            
            
-           svg.append("g")
-           .attr("class", "y1 axis")
-           .call(y2Axis)
-           .attr("transform", "translate(200," + 0 + ")")
-           .append("text")
-           .attr("transform", "translate(0," + height + ")")
-           .attr("y", 6)
-           .attr("dy", ".71em")
-           .style("text-anchor", "end")
-           .text("Tuition");
            
-           svg.append("g")
-           .attr("class", "y2 axis")
-           .call(y3Axis)
-           .attr("transform", "translate(400," + 0 + ")")
-           .append("text")
-           .attr("transform", "translate(0," + height + ")")
-           .attr("y", 6)
-           .attr("dy", ".71em")
-           .style("text-anchor", "end")
-           .text("Enrollment");
-           
-           svg.append("g")
-           .attr("class", "y3 axis")
-           .call(y4Axis)
-           .attr("transform", "translate(600," + 0 + ")")
-           .append("text")
-           .attr("transform", "translate(0," + height + ")")
-           .attr("y", 6)
-           .attr("dy", ".71em")
-           .style("text-anchor", "end")
-           .text("Employee");
            
            var univs = svg.selectAll(".line")
            .data(data, function(d) { return d.instname; })
@@ -326,7 +287,95 @@ function line(){
            .attr("y2",(data,function (d) { return y4(d.all_employees/100);}));
            
            
-           });
+           schoolnames.forEach(function(n){
+                               
+                               data.forEach(function (d){
+                                            
+                                            if(d.instname == n){
+                                            
+                                            
+                                            redline1 = svg.append("line")
+                                            .attr("class", "redline")
+                                            .style("stroke","red")
+                                            .attr("x1",0)
+                                            .attr("y1",y1(d.revenue/10000000))
+                                            .attr("x2",200)
+                                            .attr("y2",y2(d.tuition/100));
+                                            
+                                            redline2 = svg.append("line")
+                                            .attr("class", "redline")
+                                            .style("stroke","red")
+                                            .attr("x1",200)
+                                            .attr("y1",y2(d.tuition/100))
+                                            .attr("x2",400)
+                                            .attr("y2",y3(d.total_enrollment/100));
+                                            
+                                            redline3 = svg.append("line")
+                                            .attr("class", "redline")
+                                            .style("stroke","red")
+                                            .attr("x1",400)
+                                            .attr("y1",y3(d.total_enrollment/100))
+                                            .attr("x2",600)
+                                            .attr("y2",y4(d.all_employees/100));
+                                            
+                                            
+                                            }
+                                            
+                                            
+                                            
+                                            });
+                               
+                               
+                               
+                               });
 
     
+           
+           svg.append("g")
+           .attr("class", "y axis")
+           .call(y1Axis)
+           .append("text")
+           .attr("transform", "translate(0," + height + ")")
+           .attr("y", 6)
+           .attr("dy", ".71em")
+           .style("text-anchor", "end")
+           .text("Revenue");
+           
+           svg.append("g")
+           .attr("class", "y1 axis")
+           .call(y2Axis)
+           .attr("transform", "translate(200," + 0 + ")")
+           .append("text")
+           .attr("transform", "translate(0," + height + ")")
+           .attr("y", 6)
+           .attr("dy", ".71em")
+           .style("text-anchor", "end")
+           .text("Tuition");
+           
+           svg.append("g")
+           .attr("class", "y2 axis")
+           .call(y3Axis)
+           .attr("transform", "translate(400," + 0 + ")")
+           .append("text")
+           .attr("transform", "translate(0," + height + ")")
+           .attr("y", 6)
+           .attr("dy", ".71em")
+           .style("text-anchor", "end")
+           .text("Enrollment");
+           
+           svg.append("g")
+           .attr("class", "y3 axis")
+           .call(y4Axis)
+           .attr("transform", "translate(600," + 0 + ")")
+           .append("text")
+           .attr("transform", "translate(0," + height + ")")
+           .attr("y", 6)
+           .attr("dy", ".71em")
+           .style("text-anchor", "end")
+           .text("Employee");
+
+    
+           });
+
+
 }

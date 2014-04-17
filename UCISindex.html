@@ -2,6 +2,14 @@
 <html>
 
 <head>
+
+    <style type="text/css">
+        table,th,td
+        {
+            border:0px solid blue;
+        }
+    </style>
+
     <meta charset='utf-8'/>
     <meta http-equiv="X-UA-Compatible" content="chrome=1"/>
     <meta name="description" content="Datavisualizationproject : cs490/cs690"/>
@@ -21,6 +29,7 @@
 <script src="javascripts/scatterplotMatrix.js"></script>
 <script src="javascripts/line.js"></script>
 <script src="javascripts/bar.js"></script>
+<script src="javascripts/others.js"></script>
 
 
 <!-- HEADER -->
@@ -36,6 +45,7 @@
 <div id="main_content_wrap" class="outer">
     <section id="main" class="svg">
 
+        <br/>
         <form>
             <label><input id="pieradio" type="radio" name="dataset" value="scatterplot" checked> Scatter plot</label>
             <label><input id="pieradio" type="radio" name="dataset" value="pie"> Pie Chart</label>
@@ -51,7 +61,7 @@
         </div>
         <table>
             <tr>
-                <td id="svgtd" width="800"></td>
+                <td id="svgtd" width="1000"></td>
                 <td valign="top">
                     <table valign="top">
                         <tr>
@@ -71,6 +81,7 @@
 
         <script>
 
+            var currentChart = "scatterplot";
             var selecteddata;
             var data;
             var schoolnames = new Array();
@@ -80,6 +91,7 @@
 
             function formchange() {
                 var value = this.value;
+                currentChart = value;
 
                 if (value == "lines") {
                     deleteSvg();
@@ -93,6 +105,7 @@
                 if (value == "scatterplot") {
                     deleteSvg();
                     scatterplot();
+                    updateChart(data);
                 }
                 if (value == "spm") {
                     deleteSvg();
@@ -101,22 +114,22 @@
                 if (value == "bar") {
                     deleteSvg();
                     barChart();
+                    barform();
                 }
                 if (value == "map") {
                     window.location.href="MAP.html";
                 }
             }
 
-            selectData();
+            loadData();
+            deleteSvg();
             scatterplot();
-//            barChart();
 
             function deleteSvg() {
                 d3.select("#mainsvg").remove();
             }
 
-            function selectData() {
-
+            function loadData() {
                 d3.csv("data/top50with5categories.csv", function (error, dataset) {
 
                     // ensures data from csv is interpreted as int
@@ -130,49 +143,60 @@
 
                     data = dataset;
 
-                    updateChart(data);
-                });
-            }
-
-            function loadData() {
-
-                d3.csv("data/top50with5categories.csv", function (error, dataset) {
-
-                    var tempdata = new Array();
-                    // ensures data from csv is interpreted as int
-                    dataset.forEach(function (d) {
-                        schoolnames.forEach(function (n){
-                            if(d.instname == n){
-                                console.log("yes");
-                                d.tuition03_tf = +d.tuition03_tf;
-                                d.tot_rev_w_auxother_sum = +d.tot_rev_w_auxother_sum;
-                                d.control = +d.control;
-                                d.total_enrollment = +d.total_enrollment;
-                                d.all_employees = +d.all_employees;
-                                tempdata.push(d);
-                            }
-                        })
-                    });
-
-                    console.log(tempdata.length);
-                    selecteddata = tempdata;
-
-                    updatedSelected();
+                    callJS();
                 });
             }
 
             function search() {
                 var name = schoolname.name.value;
-                schoolnames.push(name);
+                var sfound = 0;
 
-                var text;
-                for (var i = 0; i < schoolnames.length; i++) {
-                    text = text + "<br>" + schoolnames[i];
-                }
-                document.getElementById("selectedschools").innerHTML = text;
-                loadData();
+                d3.csv("data/top50with5categories.csv", function (error, dataset) {
+                    var tempdata = new Array();
+                    // ensures data from csv is interpreted as int
+                    dataset.forEach(function (d) {
+                        if(name == d.instname){
+                            schoolnames.push(name);
+                            sfound = 1;
+                        }
+                    });
+
+                    if(sfound == 1) {
+                        selecteddata = tempdata;
+                        var text = schoolnames[0];
+                        for (var i = 1; i < schoolnames.length; i++) {
+                                text = text + "<br>" + schoolnames[i];
+                        }
+                        document.getElementById("selectedschools").innerHTML = text;
+                        sfound = 0;
+                    }
+                    else{
+                        alert("Cannot find this School");
+                        sfound = 0;
+                    }
+
+                    if(currentChart == "scatterplot"){
+                        chooseCategory();
+                    }
+                    else if(currentChart == "bar"){
+                        d3.select("#mainsvg").remove();
+                        barChart();
+                    }
+                    else if(currentChart == "lines"){
+                       d3.select("#mainsvg").remove();
+                       line();
+                    }
+                });
             }
 
+
+            function callJS(){
+                switch (currentChart){
+                    case "scatterplot":
+                        updateChart(data);
+                        break;
+                }
+            }
         </script>
 
 

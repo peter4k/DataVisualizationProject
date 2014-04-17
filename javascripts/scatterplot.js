@@ -16,6 +16,8 @@ var xvar = "tuition03_tf",
     xname = "Tuition",
     yname = "Total Revenue";
 
+
+var spcontrol = 0;
 // setting up x
 var xValue = function (d) {
         return d[xvar];
@@ -24,7 +26,7 @@ var xValue = function (d) {
     xMap = function (d) {
         return xScale(xValue(d));
     },
-    xAxis = d3.svg.axis().scale(xScale).orient("bottom");
+    xAxis;
 
 // setting up y
 var yValue = function (d) {
@@ -34,21 +36,18 @@ var yValue = function (d) {
     yMap = function (d) {
         return yScale(yValue(d));
     },
-    yAxis = d3.svg.axis().scale(yScale).orient("left");
+    yAxis;
 
 function scatterplot(){
     margin = {top: 20, right: 20, bottom: 30, left: 90},
     width = 800 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
-    console.log(width);
-    // load data from file
 
         createSPSvg();
         spform();
 
 }
-
 
 function createSPSvg() {
     svg = d3.select("#svgtd").append("svg")
@@ -61,6 +60,8 @@ function createSPSvg() {
 
 function updateChart(data)
 {
+    xAxis = d3.svg.axis().scale(xScale).orient("bottom").tickFormat(getAxisFormat(xvar));
+    yAxis = d3.svg.axis().scale(yScale).orient("left").tickFormat(getAxisFormat(yvar));
     xValue = function(d) {return d[xvar];},
         yValue = function(d) {return d[yvar];},
 
@@ -71,7 +72,7 @@ function updateChart(data)
     // creating the x-axis
     svg.append("g")
         .attr("class", "x axis")
-        .attr("transform", "translate(0," + height + ")")
+        .attr("transform", "translate(0, 460)")
         .call(xAxis)
         .append("text")
         .attr("class", "label")
@@ -93,63 +94,154 @@ function updateChart(data)
         .text(yname);
 
     // plotting the points on to the graph
-    svg.selectAll(".dot")
+    svg.selectAll("circle")
         .data(data)
-        .enter().append("circle")
-        .attr("class", "dot")
+        .enter()
+        .append("circle")
         .attr("r", 3.5)
         .attr("cx", xMap)
         .attr("cy", yMap)
-        .style("fill", "black")
+        .attr("fill", "#4F4F4F")
         .on("mouseover", function(d) {
-            tooltip.transition()
-                .duration(200)
-                .style("opacity", .9)
-                .style("color", "black");
-            tooltip.html(d["instname"] + "<br/> Tuition: $" + d["tuition03_tf"]
-                    + "<br/> Revenue: $" + d["tot_rev_w_auxother_sum"]
-                    + "<br/> Control: " + d["control"]
-                    + "<br/> Total Enrollment: " + d["total_enrollment"]
-                    + "<br/> Total Employees: " + d["all_employees"])
-                .style("left", (d3.event.pageX + 5) + "px")
-                .style("top", (d3.event.pageY - 28) + "px");
+            var xPosition = parseFloat(d3.select(this).attr("cx"));
+            var yPosition = parseFloat(d3.select(this).attr("cy"));
+
+            svg.append("line").attr("id", "vline")
+                .attr("x1", xPosition).attr("y1", yPosition+4)
+                .attr("x2", xPosition).attr("y2", "450")
+                .attr("style", "stroke:gray");
+
+            svg.append("line").attr("id", "hline")
+                .attr("x1", "0").attr("y1", yPosition)
+                .attr("x2", xPosition-4).attr("y2", yPosition)
+                .attr("style", "stroke:gray");
+            svg.append("text")
+                .attr("id", "mouseinfotext")
+                .attr("x", function(){
+                    if (xPosition > 300){
+                        return 100;
+                    }
+                    else{
+                        return 400;
+                    }
+                })
+                .attr("y", "50")
+                .text(d.instname)
+                .attr("font-size", "12px");
+
+
+            var text = document.getElementById("mouseinfotext");
+            var width = text.clientWidth;
+            var height = text.clientHeight;
+
+            svg.append("rect")
+                .attr("id", "mouserect")
+                .attr("x", function(){
+                    if (xPosition > 300){
+                        return 95;
+                    }
+                    else{
+                        return 395;
+                    }
+                })
+                .attr("y", "35")
+                .attr("width", width+10)
+                .attr("height", height+10)
+                .attr("fill", "rgb(220,220,220)")
+
+            d3.select("#mouseinfotext").remove();
+
+            svg.append("text")
+                .attr("id", "mouseinfotext")
+                .attr("x", function(){
+                    if (xPosition > 300){
+                        return 100;
+                    }
+                    else{
+                        return 400;
+                    }
+                })
+                .attr("y", "50")
+                .text(d.instname)
+                .attr("font-size", "12px");
+
+
         })
         .on("mouseout", function(d) {
-            tooltip.transition()
-                .duration(500)
-                .style("opacity", 0);
+            d3.select("#hline").remove();
+            d3.select("#vline").remove();
+            d3.select("#mouseinfo").remove();
+            d3.select("#mouseinfotext").remove();
+            d3.select("#mouserect").remove();
         });
-
+    transformChart(data);
 };
 
-function updatedSelected(){
+function transformChart(data){
 
-    svg.selectAll(".dot")
-        .data(selecteddata)
-        .enter().append("circle")
-        .attr("class", "dot")
+    xValue = function(d) {return d[xvar];},
+        yValue = function(d) {return d[yvar];},
+
+        // setting up the domain for the x and y-axis
+        xScale.domain([0, d3.max(data, xValue) + 1]);
+    yScale.domain([0, d3.max(data, yValue) + 1]);
+
+
+    xAxis = d3.svg.axis().scale(xScale).orient("bottom").tickFormat(getAxisFormat(xvar));
+    yAxis = d3.svg.axis().scale(yScale).orient("left").tickFormat(getAxisFormat(yvar));
+
+    // creating the x-axis
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0,460)")
+        .call(xAxis)
+        .append("text")
+        .attr("class", "label")
+        .attr("x", width)
+        .attr("y", -6)
+        .style("text-anchor", "end")
+        .text(xname);
+
+    // creating the y-axis
+    svg.append("g")
+        .attr("class", "y axis")
+        .call(yAxis)
+        .append("text")
+        .attr("class", "label")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 6)
+        .attr("dy", ".71em")
+        .style("text-anchor", "end")
+        .text(yname);
+
+    // plotting the points on to the graph
+    svg.selectAll("circle")
+        .data(data)
+        .transition()
         .attr("r", 3.5)
         .attr("cx", xMap)
         .attr("cy", yMap)
-        .style("fill", "red")
-        .on("mouseover", function(d) {
-            tooltip.transition()
-                .duration(200)
-                .style("opacity", .9)
-                .style("color", "black");
-            tooltip.html(d["instname"] + "<br/> Tuition: $" + d["tuition03_tf"]
-                + "<br/> Revenue: $" + d["tot_rev_w_auxother_sum"]
-                + "<br/> Control: " + d["control"]
-                + "<br/> Total Enrollment: " + d["total_enrollment"]
-                + "<br/> Total Employees: " + d["all_employees"])
-                .style("left", (d3.event.pageX + 5) + "px")
-                .style("top", (d3.event.pageY - 28) + "px");
+        .attr("fill", function(d){
+            var spcolor = 0;
+            schoolnames.forEach(function(n){
+                if(d.instname == n){
+                    spcolor = 1;
+                }
+            })
+            if(spcolor == 1){
+                return "red";
+            }
+            else{
+                if(spcontrol == 0)
+                return "#4F4F4F";
+                else{
+                    if(d.control == 1)
+                    return "#4F4F4F";
+                    else
+                    return "blue";
+                }
+            }
         })
-        .on("mouseout", function(d) {
-            tooltip.transition()
-                .duration(500)
-                .style("opacity", 0);
-        });
 }
 
 function chooseCategory()
@@ -170,15 +262,23 @@ function chooseCategory()
         .data([])
         .exit()
         .remove();
-    updateChart(data);
+    transformChart(data);
 }
 
+function updateControl()
+    {
+        if(document.getElementById('spcheck').checked)
+        spcontrol = 1;
+        else
+        spcontrol = 0;
+        transformChart(data);
+    }
 function spform(){
 
     var text = '<form>'+
         <!--Select value for x-axis:-->
         '<select id="xList" onchange="chooseCategory()">'+
-            '<option value="tuition03_tf">Tuition</option>'+
+            '<option value="tuition03_tf" selected>Tuition</option>'+
             '<option value="tot_rev_w_auxother_sum">Total Revenue</option>'+
     //'<option value="control">Control</option>'+
     '<option value="total_enrollment">Total Enrollment</option>'+
@@ -187,11 +287,13 @@ function spform(){
     <!--Select value for y-axis:-->
         '<select id="yList" onchange="chooseCategory()">'+
     '<option value="tuition03_tf">Tuition</option>'+
-    '<option value="tot_rev_w_auxother_sum">Total Revenue</option>'+
+    '<option value="tot_rev_w_auxother_sum" selected>Total Revenue</option>'+
     //'<option value="control">Control</option>'+
     '<option value="total_enrollment">Total Enrollment</option>'+
     '<option value="all_employees">Employees</option>'+
     '</select>'+
-    '</form>';
+        '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
+        '<input type="checkbox" id="spcheck" name="control" value="control" onclick="updateControl()">Private/public'+
+        '</form>';
     document.getElementById("selection").innerHTML=text;
 }

@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html>
 
-<head>
+<head lang="en">
     <meta charset='utf-8'/>
     <meta http-equiv="X-UA-Compatible" content="chrome=1"/>
-    <meta name="description" content="Datavisualizationproject : cs490/cs690"/>
+    <meta name="description" content="Data Visualization Project : cs490/cs690"/>
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
-    <title>Datavisualizationproject</title>
+    <title>Data Visualization Project</title>
 </head>
 
 <body>
-
 <!-- HEADER -->
 <div id="header_wrap" class="outer">
     <header class="inner">
@@ -44,68 +43,68 @@
             universities across the U.S. We are going to create some form of an interactive map that users to access the
             data visually. We will update this page when we begin to implement our prototype.</p>
 
+            <h3>
+            <a name="Project UCIS" class="anchor" href="#pprototypes"><span class="octicon octicon-link"></span></a>Project
+            UCIS
+        </h3>
+        <p>The United States College Information System Project is under the progress. 
+            <br/>All team members contribute to this part.
+            <br/>The USCI Project aims to utilize the gathered information of the institutions throughout the United States to create different visualizations. Rather than be intimidated and confused by the large data set, our users will be able to visualize institutions on a geographical map and find out specific information on each institute. They will be able to compare different values of institutes such as tuition cost, total revenue, grants awarded, and many other criteria that are available. This implementation will be in the form of a website and be written using the D3 (a JavaScript based language). 
+            <br/>A link to the project can be found here:
+            <a href="UCISindex.html">UCIS Project</a>
+            <br/>
+
         <h3>
             <a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span
                     class="octicon octicon-link"></span></a>Authors and Contributors</h3>
 
-        <p>The authors of this project are Alejandro Zepeda, Miao Guo, and Yi Wang. Our project sponsor is Professor
-            Sophie Engle.</p>
+        <p>The authors of this project are Miao Guo and Yi Wang. Our project sponsor is Professor
+            Sophie Engle.<br/>
+            <br/>Team member Yi contributes to the following work:
+            <li/>Website Style Design.
+            <li/>Integrate All Visualizations into the project webpage.
+            <li/>Database Cleaning.
+            <li/>Retrieve Database.
+            <li/>Scatter Plot Chart.
+            <li/>Scatter Plot Matrix.
+            <li/>Bar Chart.
+            <li/>Search Function.
+            <br/><br/>Team member Miao contributes to the following work:
+            <li/>Database processing.
+            <li/>Pie Chart.
+            <li/>Parallel Coordinates.
+            <li/>Map.</p>
+
+
 
         <h3>
-            <a name="Individual Prototypes" class="anchor" href="#iprototypes"><span
-                    class="octicon octicon-link"></span></a>Individual Prototypes
+            <a name="Dataset" class="anchor" href="#pprototypes"><span class="octicon octicon-link"></span></a>Dataset
         </h3>
-
-        <p>Each member has been working on their individual prototypes with D3.js during the process of implementing the
-            greater app. Here are links to each members visualizations:
-            <br/><br/>Alejandro Zepeda's Prototypes:
-            <br/>This visualization uses a scatterplot to show the correlation between tuition and total revenue. The
-            data set used contains the top 50 universities based on total revenue. <a
-                    href="alex/AlexFirstPrototype.html">Link to first prototype <br/></a>
-            <br/>This visualization uses a scatterplot to show the correlation between five categories of the users
-            choosing. The choices are tuition cost, total revenue, number of students enrolled, total employees, and
-            control (private, public, etc). The data set used contains the top 50 universities based on total revenue.
-            <a href="alex/AlexSecondPrototype.html">Link to second prototype </a>
-            <br/><br/>Miao Guo's Prototypes:
-            <br/>Miao did two different prototypes. One visualizing using a scatterplot, another one using a pie chart
-            <br/>Scatterplot prototype: <a href="miao/university.html">Link to prototype </a>
-            <br/>Pie chart prototype: <a href="miao/pie.html">Link to prototype </a>
-            <br/>
-            <br/>Yi Wang's Prototypes:
-            <br/>This visualization uses a scatterplot to show the correlation between five categories of the users
-            choosing. The choices are tuition cost, total revenue, number of students enrolled, total employees, and
-            control (private, public, etc). The data set used contains the top 50 universities based on total revenue.
-            <a href="yiwang/index.html">Link to prototype </a>
-            <br/>
+        <p>Our projects uses Delta Cost Project Database, retrieved from the Integrated Postsecondary Education System (IPEDS)
+        <br/>The original dataset contains more than 700 values for each school, and most of them are not meaningful for our potential users. So we made the following changes to the dataset:
+        <li/>Deleted less valuable values.
+        <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;We deleted more than 80% of the values, and only keep the values which are meaningful for the users.
+        <li/>Only keep data collected from year 2010.
+        <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The original dataset contains values from 1987 - 2010. As we did not implement visualizations on different time
+        <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;period, we only keep data from the most recent year.
+        <li/>Deleted schools that does not contain enough values.
+        <br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Some schools are missing values. If a school is missing too many values, we remove it.
         </p>
+
+        
+
 
         <h3>
-            <a name="Project UCIS" class="anchor" href="#pprototypes"><span class="octicon octicon-link"></span></a>Project
-            UCIS
+            <a name="Reference" class="anchor" href="#pprototypes"><span class="octicon octicon-link"></span></a>Reference
         </h3>
-        <p>The United States College Information System Project is under the progress. All team members contribute to
-        this part.
-        <br/>A link to the project can be found here:
-        <a href="UCISindex.html">UCIS Project</a>
-        <br/>
-        <br/>
-        <br/>
-        </p>
+        <p><a href="http://d3js.org">D3</a> - a JavaScript Library.
+            <br/><a href="http://nces.ed.gov/ipeds/deltacostproject/">Delta Cost Project Database</a> - a longitudinal database derived from IPEDS
+            <br/>
+
+
 
 
     </section>
 </div>
-
-<!-- FOOTER  -->
-<div id="footer_wrap" class="outer">
-    <footer class="inner">
-        <p class="copyright">Datavisualizationproject maintained by <a href="https://github.com/azepeda2">azepeda2</a>
-        </p>
-
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-    </footer>
-</div>
-
-
 </body>
 </html>

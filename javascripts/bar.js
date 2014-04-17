@@ -2,8 +2,14 @@
  * Created by Peter on 14-4-7.
  */
 
+var barsort = 0;
+var barvar = "tuition03_tf";
+var barname = "Tuition";
+
 function barChart(){
-    var margin = {top: 20, right: 20, bottom: 300, left: 60},
+
+
+    var margin = {top: 20, right: 20, bottom: 300, left: 100},
         width = 960 - margin.left - margin.right,
         height = 700 - margin.top - margin.bottom;
 
@@ -14,10 +20,10 @@ function barChart(){
         xMap = function(d) { return xScale(xValue(d)); }, // data -> display
         xAxis = d3.svg.axis().scale(xScale).orient("bottom");
 
-    var yValue = function(d) { return d.tuition03_tf; }, // data -> value
+    var yValue = function(d) { return d[barvar]; }, // data -> value
         yScale = d3.scale.linear().range([height, 0]), // value -> display
         yMap = function(d) { return yScale(yValue(d)); }, // data -> display
-        yAxis = d3.svg.axis().scale(yScale).orient("left").tickFormat(formatPercent);
+        yAxis = d3.svg.axis().scale(yScale).orient("left").tickFormat(getAxisFormat(barvar));
 
     var svg = d3.select("#svgtd").append("svg")
         .attr("id", "mainsvg")
@@ -28,7 +34,17 @@ function barChart(){
 
     d3.csv("data/top50with5categories.csv", type, function(error, data) {
 
-
+        if(barsort == 1){
+            data.sort(function(a, b){
+                return b[barvar] - a[barvar];
+            });
+        }
+        else if(barsort == 2){
+            console.log("true")
+            data.sort(function(a, b){
+                return a[barvar] - b[barvar];
+            });
+        }
         // ensures data from csv is interpreted as int
         data.forEach(function (d) {
             d.tuition03_tf = +d.tuition03_tf;
@@ -43,8 +59,12 @@ function barChart(){
 
         svg.append("g")
             .attr("class", "barx axis")
-            .attr("transform", "translate(0," + 500 + ")")
-            .call(xAxis);
+            .attr("transform", "translate(0," + 381 + ")")
+            .call(xAxis)
+            .selectAll("text")
+            .style("text-anchor", "end")
+            .attr("transform", "rotate(-145) translate(0, -18)");
+
 
         svg.append("g")
             .attr("class", "y axis")
@@ -54,13 +74,29 @@ function barChart(){
             .attr("y", 6)
             .attr("dy", ".71em")
             .style("text-anchor", "end")
-            .text("Frequency");
+            .text(function(d){
+                return barname;
+            });
 
 
         svg.selectAll(".bar")
             .data(data)
             .enter().append("rect")
             .attr("class", "bar")
+            .attr("fill", function(d){
+                var color = 0;
+                schoolnames.forEach(function(n){
+                    if(d.instname == n){
+                        color = 1;
+                    }
+                })
+                if(color == 0){
+                    return "steelblue";
+                }
+                else{
+                    return "orange";
+                }
+            })
             .attr("x", xMap)
             .attr("width", xScale.rangeBand)
             .attr("y", yMap)
@@ -73,4 +109,46 @@ function barChart(){
         d.tuition03_tf = +d.tuition03_tf;
         return d;
     }
+}
+
+
+function barform(){
+    var text = '<form>'+
+        '<select id="barSelect" onchange="barChooseCategory()">'+
+        '<option value="tuition03_tf">Tuition</option>'+
+        '<option value="tot_rev_w_auxother_sum">Total Revenue</option>'+
+        '<option value="total_enrollment">Total Enrollment</option>'+
+        '<option value="all_employees">Employees</option>'+
+        '</select>' +
+        '<input type="button" name="button" value="sort" onclick="sortBars()"/>'+
+        '<input type="button" name="button" value="reset" onclick="resetBars()"/>'+
+        '</form>';
+    document.getElementById("selection").innerHTML=text;
+}
+
+
+function barChooseCategory(){
+    barvar = document.getElementById("barSelect")
+        .options[barSelect.selectedIndex].value;
+    barname = document.getElementById("barSelect")
+        .options[barSelect.selectedIndex].text;
+    d3.select("#mainsvg").remove();
+    barChart();
+}
+
+function resetBars(){
+    barsort = 0;
+    d3.select("#mainsvg").remove();
+    barChart();
+}
+
+function sortBars(){
+    if(barsort == 0 || barsort == 2){
+        barsort = 1;
+    }
+    else{
+        barsort = 2;
+    }
+    d3.select("#mainsvg").remove();
+    barChart();
 }
