@@ -74,7 +74,7 @@ function piechart(){
 
         var rects = blocks.append("rect")
             .attr({
-                "x": 80,
+                "x": 100,
                 "y": 0,
                 "width": 30,
                 "height": 30,
@@ -84,7 +84,7 @@ function piechart(){
            .style("fill", function(d,i){return pie_color[i];})
 
         var text_content = blocks.append("text")
-            .attr({x:113, y:14})
+            .attr({x:133, y:14})
             .style({
                 "fill": "#232323",
                 "stroke-width": 0 + "px",
