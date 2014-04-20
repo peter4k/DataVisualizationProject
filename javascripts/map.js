@@ -1,4 +1,3 @@
-
 var width = 1400,
 height = 500;
 
@@ -14,10 +13,16 @@ var svg = d3.select("body").append("svg")
 .attr("height", height);;
 
 var map_color = d3.scale.linear()
-.domain([0,0.01, 0.03])
+.domain([0,0.01, 0.02])
 .range(["yellow","orange", "red"]);
 
-var bar_data = d3.range(10);
+var map_color_rev = d3.scale.linear()
+.domain([0,0.65, 0.8])
+.range(["yellow","orange", "red"]);
+
+var opt = 0;
+
+var data = d3.range(10);
 
 
 var gradient = svg.append("linearGradient")
@@ -37,7 +42,7 @@ gradient.append("stop")
 .attr("stop-color", "yellow");
 
 svg.selectAll("rect")
-.data(bar_data)
+.data(data)
 .enter()
 .append("rect")
 .attr("x", 180)
@@ -66,16 +71,11 @@ svg.append("text")
 .attr("text-anchor","middle")
 .attr("font-weight","bold");
 
-
-var opt = 0;
-
 Drawmap();
 
 function Drawmap(){
     
-    
-    
-    d3.csv("data/mapgps.csv", function(error, data) {
+    d3.csv("data/mapgps_new.csv", function(error, data) {
            
            data.forEach(function(d) {
                         d.all_employees = +d.all_employees;
@@ -84,12 +84,8 @@ function Drawmap(){
                         d.LATITUDE = +d.LATITUDE;
                         });
            
-           
-           
-           
-           
            if(opt == 0){
-           var total_value = d3.sum(data, function(n) { return n.revenue; });
+           var total_value = d3.mean(data, function(n) { return n.revenue;});
            } else if (opt == 1) {
            var total_value = d3.sum(data, function(n) { return n.all_employees; });
            }
@@ -105,14 +101,15 @@ function Drawmap(){
                    .data(topojson.feature(topology, topology.objects.subunit).features)
                    .style("fill",function(d){
                           
-                          
                           var local_value = 0.0;
+                          var count = 0;
                           data.forEach(function(m){
                                        
                                        if(m.state == d.properties.name) {
                                        
                                        if(opt==0){
                                        local_value = local_value + m.revenue;
+                                       count++;
                                        }else if(opt==1){
                                        local_value = local_value + m.all_employees;
                                        }
@@ -126,41 +123,22 @@ function Drawmap(){
                           
                           } else {
                           //98,251,152
-                          var num = local_value/total_value;
+                          if(opt==0){
+                          var num = (local_value/count)/total_value;
+                          return map_color_rev(num);
+                          } else {
+                          var num = (local_value)/total_value;
+                          }
                           return map_color(num);
                           }
-                          })
-                   .on("mouseenter", function(d){
-                       
-                       data.forEach(function(m,i){
-                                    
-                                    if(d.properties.name == m.state){
-                                    
-                                    text = svg.append("text")
-                                    .attr("class","name")
-                                    .attr("dy", ".5em")
-                                    .attr("x",1250)
-                                    .attr("y",100+i*30)
-                                    .text(m.instname)
-                                    .style("font-size","15px")
-                                    .attr("font-family","serif")
-                                    .attr("text-anchor","middle")
-                                    .attr("font-weight","bold");
-                                    }     
-                                    
-                                    });
-                       })
-                   .on("mouseout",function(){ 
-                       
-                       svg.selectAll(".name").remove();
-                       });
+                          });
                    
                    
-                   svg.selectAll(".points")
+                   svg.selectAll(".circle")
                    .data(data)
                    .enter()
-                   .append("circle",".pin")
-                   .attr("r",4)
+                   .append("circle")
+                   .attr("r",2)
                    .attr("fill", "black")
                    .attr("transform", function(d) {return "translate(" + projection([d.LONGITUD,d.LATITUDE]) + ")";});
                    
@@ -174,13 +152,12 @@ function Drawmap(){
                    if(value == "revenue"){ opt = 0;}
                    if(value == "all_employees"){ opt = 1;}
                    
-                   Drawmap(); 
+                   Drawmap();
                    }
-      
+                   
                    });  //json
            }); //csv
 }
 
 
 d3.select(self.frameElement).style("height", height + "px");
-
