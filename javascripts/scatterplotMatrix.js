@@ -20,12 +20,12 @@ function createSPM(){
 
     var xAxis = d3.svg.axis()
         .scale(x)
-        .orient("bottom")
+        .orient("bottom").tickFormat(d3.format("s"))
         .ticks(5);
 
     var yAxis = d3.svg.axis()
         .scale(y)
-        .orient("left")
+        .orient("left").tickFormat(d3.format("s"))
         .ticks(5);
 
     var color = d3.scale.category10();
@@ -39,7 +39,7 @@ function createSPM(){
         var size = 140,
             padding = 10,
             n = 4,
-            traits = d3.keys(data[0]).filter(function(d) { return ( d !== "control" && d !== "instname"); });
+            traits = d3.keys(data[0]).filter(function(d) { return ( d !== "control" && d !== "instname"); })
 
         // Position scales.
         var x = {}, y = {};
@@ -61,7 +61,7 @@ function createSPM(){
 
 
         // Root panel.
-        var svg = d3.select("#main").append("svg:svg")
+        var svg = d3.select("#svgtd").append("svg:svg")
             .attr("id", "mainsvg")
             .attr("width", 1000)
             .attr("height", 600)
@@ -75,7 +75,7 @@ function createSPM(){
             .enter().append("svg:g")
             .attr("class", "x smpaxis")
             .attr("transform", function(d, i) { return "translate(" + i * size + ",0)"; })
-            .each(function(d) { d3.select(this).call(axis.scale(x[d]).orient("bottom")); });
+            .each(function(d) { d3.select(this).call(axis.scale(x[d]).orient("bottom").tickFormat(d3.format("s"))); });
 
         // Y-axis.
         svg.selectAll("g.y.axis")
@@ -83,7 +83,7 @@ function createSPM(){
             .enter().append("svg:g")
             .attr("class", "y smpaxis")
             .attr("transform", function(d, i) { return "translate(0," + i * size + ")"; })
-            .each(function(d) { d3.select(this).call(axis.scale(y[d]).orient("right")); });
+            .each(function(d) { d3.select(this).call(axis.scale(y[d]).orient("right").tickFormat(d3.format("s"))); });
 
         // Cell and plot.
         var cell = svg.selectAll("g.cell")
@@ -98,7 +98,8 @@ function createSPM(){
             .attr("x", padding)
             .attr("y", padding)
             .attr("dy", ".71em")
-            .text(function(d) { return d.x; });
+            .text(function(d) {
+                return getLabelText(d.x); });
 
         function plot(p) {
             var cell = d3.select(this);
@@ -140,6 +141,25 @@ function createSPM(){
                 && e[0][1] <= d[p.y] && d[p.y] <= e[1][1]
                 ? d.control : null;
         }
+
+        var legend = svg.selectAll("g.legend")
+            .data([
+                {"Name": "Private", "Color": "#0094c8"},
+                {"Name": "Public", "Color": "#4F4F4F"}
+            ])
+            .enter().append("svg:g")
+            .attr("transform", function(d, i) { return "translate(650," + (i * 20 + 450) + ")"; });
+
+        legend.append("svg:circle")
+            .attr("fill", function(d){
+                return d.Color;
+            })
+            .attr("r", 3);
+
+        legend.append("svg:text")
+            .attr("x", 12)
+            .attr("dy", ".31em")
+            .text(function(d) { return d.Name; });
     });
 }
 
