@@ -390,3 +390,9 @@ rect.frame {
     stroke: black;
     stroke-width: 1.5px;
 }
+
+.states:hover{
+    fill:blue;
+    stroke:blue;
+    stroke-width: 2.75px;
+}
