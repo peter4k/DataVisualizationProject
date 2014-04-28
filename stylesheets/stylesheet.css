@@ -19,7 +19,7 @@ dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
+figure, figcaption, footer, header, circlesearched,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
     margin: 0;
@@ -30,7 +30,7 @@ time, mark, audio, video {
 
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {
+footer, header,  menu, nav, section {
     display: block;
 }
 
@@ -303,7 +303,13 @@ svg {
 }
 
 circle {
-    fill-opacity: .7;
+    fill-opacity: 1.0;
+}
+
+.searched {
+    fill-opacity: 1.0;
+    stroke: #000;
+    stroke-width:2;
 }
 
 circle.hidden {
@@ -372,11 +378,17 @@ rect.frame {
 }
 
 .s1{
-    fill: #800;
+    fill: #0094c8;
 }
 
 .s2{
-    fill: #080;
+    fill: orange;
+}
+
+.s3{
+    fill: gray;
+    stroke: #000;
+    stroke-width:2;
 }
 
 
