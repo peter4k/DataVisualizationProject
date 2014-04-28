@@ -113,11 +113,11 @@ function piechart(){
 
         var rects = blocks.append("rect")
             .attr({
-<<<<<<< HEAD
+ 
                 "x": 120,
-=======
+ 
                 "x": 80,
->>>>>>> FETCH_HEAD
+  
                 "y": 0,
                 "width": 30,
                 "height": 30,
@@ -126,13 +126,13 @@ function piechart(){
             })
            .style("fill", function(d,i){return pie_color[i];})
 
-<<<<<<< HEAD
+ 
         var text_content = blocks.append("text").data(schoolnames)
             .attr({x:153, y:14})
-=======
+ 
         var text_content = blocks.append("text")
             .attr({x:113, y:14})
->>>>>>> FETCH_HEAD
+ 
             .style({
                 "fill": "#232323",
                 "stroke-width": 0 + "px",

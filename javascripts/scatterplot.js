@@ -149,7 +149,7 @@ function updateChart(data)
                 .attr("y", "35")
                 .attr("width", width+10)
                 .attr("height", height+10)
-                .attr("fill", "gray")
+                .attr("fill", "rgb(220,220,220)")
 
             d3.select("#mouseinfotext").remove();
 
@@ -180,26 +180,16 @@ function updateChart(data)
 
     var legend = svg.selectAll("g.legend")
         .data([
- 
             {"Name": "Selected", "Color": "#82ae46"},
             {"Name": "Private", "Color": "#0094c8"},
             {"Name": "Searched", "Color": "orange"},
             {"Name": "Default", "Color": "#4F4F4F"}
- 
-            {"Name": "Searched", "Color": "s3"},
-            {"Name": "Private", "Color": "s2"},
-            {"Name": "Public", "Color": "s1"}
- 
         ])
         .enter().append("svg:g")
         .attr("transform", function(d, i) { return "translate(740," + (i * 20 + 370) + ")"; });
- 
+
     legend.append("svg:circle")
         .attr("fill", function(d){
- 
-    legend.append("circle")
-        .attr("class", function(d){
- 
             return d.Color;
         })
         .attr("r", 3);
@@ -209,7 +199,7 @@ function updateChart(data)
         .attr("dy", ".31em")
         .text(function(d) { return d.Name; });
 
- 
+
 };
 
 function transformChart(data){
@@ -253,7 +243,10 @@ function transformChart(data){
     svg.selectAll("circle")
         .data(data)
         .transition()
-        .attr("class",function(d){
+        .attr("r", 3.5)
+        .attr("cx", xMap)
+        .attr("cy", yMap)
+        .attr("fill", function(d){
             var spcolor = 0;
             schoolnames.forEach(function(n){
                 if(d.instname == n){
@@ -261,56 +254,32 @@ function transformChart(data){
                 }
             })
             if(spcolor == 1){
- 
                 return "orange";
- 
-                return "searched";
- 
             }
-        })
-        .attr("r", 3.5)
-        .attr("cx", xMap)
-        .attr("cy", yMap)
-        .attr("fill", function(d){
+            else{
                 if(spcontrol == 0)
                 return "#4F4F4F";
                 else{
                     if(d.control == 1)
-                    return "#0094c8";
+                    return "#4F4F4F";
                     else
- 
                     return "#0094c8";
                 }
             }
- 
-                    return "orange";
-                }
- 
         });
 
     var legend = svg.selectAll("g.legend")
         .data([
- 
             {"Name": "Selected", "Color": "#82ae46"},
             {"Name": "Private", "Color": "#0094c8"},
             {"Name": "Searched", "Color": "orange"},
             {"Name": "Default", "Color": "#4F4F4F"}
- 
-            {"Name": "Searched", "Color": "s3"},
-            {"Name": "Private", "Color": "s2"},
-            {"Name": "Public", "Color": "s1"}
- 
         ])
         .enter().append("svg:g")
         .attr("transform", function(d, i) { return "translate(740," + (i * 20 + 370) + ")"; });
 
- 
     legend.append("svg:circle")
         .attr("fill", function(d){
- 
-    legend.append("circle")
-        .attr("class", function(d){
- 
             return d.Color;
         })
         .attr("r", 3);
