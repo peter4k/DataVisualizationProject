@@ -3,17 +3,14 @@
  */
 
 var barsort = 0;
-    barvar = "tuition03_tf";
-    barname = "Tuition";
-
-
-var barcontrol = 0;
+var barvar = "tuition03_tf";
+var barname = "Tuition";
 
 function barChart(){
 
 
-    var margin = {top: 20, right: 150, bottom: 300, left: 100},
-        width = 1000 - margin.left - margin.right,
+    var margin = {top: 20, right: 20, bottom: 300, left: 100},
+        width = 960 - margin.left - margin.right,
         height = 700 - margin.top - margin.bottom;
 
     var formatPercent = d3.format(".0%");
@@ -35,7 +32,7 @@ function barChart(){
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    d3.csv(currentDataset, type, function(error, data) {
+    d3.csv("data/top50with5categories.csv", type, function(error, data) {
 
         if(barsort == 1){
             data.sort(function(a, b){
@@ -83,31 +80,21 @@ function barChart(){
 
 
         svg.selectAll(".bar")
-            .data(data.filter(function(d) {
-                console.log(d.tuition03_tf > 100);
-                return d.tuition03_tf > 100;
-            }))
+            .data(data)
             .enter().append("rect")
             .attr("class", "bar")
             .attr("fill", function(d){
-                var spcolor = 0;
+                var color = 0;
                 schoolnames.forEach(function(n){
                     if(d.instname == n){
-                        spcolor = 1;
+                        color = 1;
                     }
                 })
-                if(spcolor == 1){
-                    return "orange";
+                if(color == 0){
+                    return "steelblue";
                 }
                 else{
-                    if(barcontrol == 0)
-                        return "#0094c8";
-                    else{
-                        if(d.control == 1)
-                            return "lightgrey";
-                        else
-                            return "#0094c8";
-                    }
+                    return "orange";
                 }
             })
             .attr("x", xMap)
@@ -115,33 +102,6 @@ function barChart(){
             .attr("y", yMap)
             .attr("height", function(d) {
                 return height - yMap(d); });
-
-        if(barcontrol == 1) {
-            var legend = svg.selectAll("g.legend")
-                .data([
-                    {"Name": "Private", "Color": "#0094c8"},
-                    {"Name": "Public", "Color": "lightgrey"}
-                ])
-                .enter().append("svg:g")
-                .attr("transform", function (d, i) {
-                    return "translate(780," + (i * 20 + 330) + ")";
-                });
-
-            legend.append("rect")
-                .attr("class", "bar")
-                .attr("height", 14)
-                .attr("width", 80)
-                .attr("fill", function (d) {
-                    return d.Color;
-                });
-
-            legend.append("svg:text")
-                .attr("x", 83)
-                .attr("dy", "1em")
-                .text(function (d) {
-                    return d.Name;
-                });
-        }
 
     });
 
@@ -162,20 +122,10 @@ function barform(){
         '</select>' +
         '<input type="button" name="button" value="sort" onclick="sortBars()"/>'+
         '<input type="button" name="button" value="reset" onclick="resetBars()"/>'+
-        '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
-        '<input type="checkbox" id="barcheck" name="control" value="control" onclick="updateBarControl()">Private/public'+
         '</form>';
     document.getElementById("selection").innerHTML=text;
 }
 
-function updateBarControl()
-{
-    if(document.getElementById('barcheck').checked)
-        barcontrol = 1;
-    else
-        barcontrol = 0;
-    resetBars();
-}
 
 function barChooseCategory(){
     barvar = document.getElementById("barSelect")

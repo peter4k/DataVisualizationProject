@@ -60,31 +60,70 @@ function piechart(){
 
     pieform();
     createPieSvg();
+    d3.csv("data/map.csv", type, function(error, data) {
+    var csvdata = [];
+       
+           if(schoolnames.length > 9) {
+           
+           schoolnames.pop(schoolnames[10])
+           }
     
-
-    d3.csv("data/pie.csv", type, function(error, data) {
-
-
+    schoolnames.forEach(function(m){
+                        
+                        data.forEach(function(d){
+                                     
+                                     if(d.instname == m){
+                                     
+                                     csvdata.push({instname:d.instname,tuition:d.tuition,revenue:d.revenue,control:d.control,
+                                                  total_enrollment:d.total_enrollment,all_employees:d.all_employees})
+                                     }
+                                     
+                                })
+                        
+                        
+                        });
+           svg.selectAll(".title").remove();
+ 
+           if (schoolnames[0] == null){
+           
+            text = svg.append("text")
+           .attr("class","title")
+           .style("text-anchor", "middle")
+           .text("Please enter an university.")
+           .style("font-size","30px")
+           .attr("font-family","serif")
+           .attr("x",weight/2)
+           .attr("y",height/2)
+           .attr("font-weight","bold");
+           
+           }
+           
+           
         var group1 = svg.append("g").classed("group1", true)
 
-        var blocks = group1.selectAll("g").data(data)
+        var blocks = group1.selectAll("g").data(schoolnames)
             .enter()
             .append("g")
-            .attr("transform", function(d,i){ return get_location(d,i)})
+            .attr("transform", function(d,i){
+                  
+                  
+                    return get_location(d,i)
+                  
+           });
+           var rects = blocks.append("rect")
+           .attr({
+                 "x": 140,
+                 "y": 0,
+                 "width": 30,
+                 "height": 30,
+                 "rx": 5,
+                 "ry": 5
+                 })
+           .style("fill", function(d,i){return  pie_color[i]});
 
-        var rects = blocks.append("rect")
-            .attr({
-                "x": 80,
-                "y": 0,
-                "width": 30,
-                "height": 30,
-                "rx": 5,
-                "ry": 5
-            })
-           .style("fill", function(d,i){return pie_color[i];})
-
-        var text_content = blocks.append("text")
-            .attr({x:113, y:14})
+ 
+        var text_content = blocks.append("text").data(schoolnames)
+            .attr({x:173, y:14})
             .style({
                 "fill": "#232323",
                 "stroke-width": 0 + "px",
@@ -93,9 +132,9 @@ function piechart(){
                 "alignment-baseline": "middle",
                 "font-family": "sans-serif"
             })
-            .text(function(d,i){return d.instname})
+            .text(function(d){return d})
 
-        var path = svg.datum(data).selectAll("path")
+        var path = svg.datum(csvdata).selectAll("path")
             .data(pie)
             .enter().append("path")
             .attr("fill", function(d, i) { return pie_color[i];})
@@ -104,7 +143,7 @@ function piechart(){
             .on("mouseenter", function(d){
 
                 text = svg.append("text")
-                    .attr("class","name")
+                    .attr("class","detail")
                     .attr("transform", arc.centroid(d))
                     .attr("dy", ".5em")
                     .style("text-anchor", "middle")
@@ -116,7 +155,7 @@ function piechart(){
 
                 if(opt==0){
                     value = svg.append("text")
-                        .attr("class","name")
+                        .attr("class","detail")
                         .attr("transform", arc.centroid(d))
                         .attr("dy", ".5em")
                         .style("text-anchor", "middle")
@@ -127,12 +166,12 @@ function piechart(){
                         .attr("font-weight","bold");
                 
                 per = svg.append("text")
-                .attr("class","per")
+                .attr("class","detail")
                 .attr("transform", arc.centroid(d))
                 .attr("dy", ".5em")
                 .style("text-anchor", "middle")
                 .attr("y",height/2-380)
-                .text(d3.round(100*(d.data.revenue/d3.sum(data, function(d) { return d.revenue; })))+"%")
+                .text(d3.round(100*(d.data.revenue/d3.sum(csvdata, function(d) { return d.revenue; })))+"%")
                 .style("font-size","15px")
                 .attr("font-family","serif")
                 .attr("text-anchor","middle")
@@ -142,7 +181,7 @@ function piechart(){
                 }
                 if(opt==1){
                     value = svg.append("text")
-                        .attr("class","name")
+                        .attr("class","detail")
                         .attr("transform", arc.centroid(d))
                         .attr("dy", ".5em")
                         .style("text-anchor", "middle")
@@ -153,12 +192,12 @@ function piechart(){
                         .attr("font-weight","bold");
                 
                 per = svg.append("text")
-                .attr("class","per")
+                .attr("class","detail")
                 .attr("transform", arc.centroid(d))
                 .attr("dy", ".5em")
                 .style("text-anchor", "middle")
                 .attr("y",height/2-380)
-                .text(d3.round(100*(d.data.tuition/d3.sum(data, function(d) { return d.tuition; })))+"%")
+                .text(d3.round(100*(d.data.tuition/d3.sum(csvdata, function(d) { return d.tuition; })))+"%")
                 .style("font-size","15px")
                 .attr("font-family","serif")
                 .attr("text-anchor","middle")
@@ -168,7 +207,7 @@ function piechart(){
                 if(opt==2){
 
                     value = svg.append("text")
-                        .attr("class","name")
+                        .attr("class","detail")
                         .attr("transform", arc.centroid(d))
                         .attr("dy", ".5em")
                         .style("text-anchor", "middle")
@@ -179,12 +218,12 @@ function piechart(){
                         .attr("font-weight","bold");
                 
                 per = svg.append("text")
-                .attr("class","per")
+                .attr("class","detail")
                 .attr("transform", arc.centroid(d))
                 .attr("dy", ".5em")
                 .style("text-anchor", "middle")
                 .attr("y",height/2-380)
-                .text(d3.round(100*(d.data.total_enrollment/d3.sum(data, function(d) { return d.total_enrollment; })))+"%")
+                .text(d3.round(100*(d.data.total_enrollment/d3.sum(csvdata, function(d) { return d.total_enrollment; })))+"%")
                 .style("font-size","15px")
                 .attr("font-family","serif")
                 .attr("text-anchor","middle")
@@ -195,7 +234,7 @@ function piechart(){
                 if(opt==3){
 
                     value = svg.append("text")
-                        .attr("class","name")
+                        .attr("class","detail")
                         .attr("transform", arc.centroid(d))
                         .attr("dy", ".5em")
                         .style("text-anchor", "middle")
@@ -208,12 +247,12 @@ function piechart(){
                 
                 
                 per = svg.append("text")
-                .attr("class","per")
+                .attr("class","detail")
                 .attr("transform", arc.centroid(d))
                 .attr("dy", ".5em")
                 .style("text-anchor", "middle")
                 .attr("y",height/2-380)
-                .text(d3.round(100*(d.data.all_employees/d3.sum(data, function(d) { return d.all_employees; })))+"%")
+                .text(d3.round(100*(d.data.all_employees/d3.sum(csvdata, function(d) { return d.all_employees; })))+"%")
                 .style("font-size","15px")
                 .attr("font-family","serif")
                 .attr("text-anchor","middle")
@@ -225,6 +264,7 @@ function piechart(){
 
             })
             .on("mouseout",function(d){
+                svg.selectAll(".detail").remove()
                 text.remove();
                 value.remove();
                 per.remove();
