@@ -180,27 +180,26 @@ function updateChart(data)
 
     var legend = svg.selectAll("g.legend")
         .data([
-<<<<<<< HEAD
+ 
             {"Name": "Selected", "Color": "#82ae46"},
             {"Name": "Private", "Color": "#0094c8"},
             {"Name": "Searched", "Color": "orange"},
             {"Name": "Default", "Color": "#4F4F4F"}
-=======
+ 
             {"Name": "Searched", "Color": "s3"},
             {"Name": "Private", "Color": "s2"},
             {"Name": "Public", "Color": "s1"}
->>>>>>> FETCH_HEAD
+ 
         ])
         .enter().append("svg:g")
         .attr("transform", function(d, i) { return "translate(740," + (i * 20 + 370) + ")"; });
-
-<<<<<<< HEAD
+ 
     legend.append("svg:circle")
         .attr("fill", function(d){
-=======
+ 
     legend.append("circle")
         .attr("class", function(d){
->>>>>>> FETCH_HEAD
+ 
             return d.Color;
         })
         .attr("r", 3);
@@ -210,11 +209,7 @@ function updateChart(data)
         .attr("dy", ".31em")
         .text(function(d) { return d.Name; });
 
-
-<<<<<<< HEAD
-=======
-
->>>>>>> FETCH_HEAD
+ 
 };
 
 function transformChart(data){
@@ -266,11 +261,11 @@ function transformChart(data){
                 }
             })
             if(spcolor == 1){
-<<<<<<< HEAD
+ 
                 return "orange";
-=======
+ 
                 return "searched";
->>>>>>> FETCH_HEAD
+ 
             }
         })
         .attr("r", 3.5)
@@ -283,39 +278,39 @@ function transformChart(data){
                     if(d.control == 1)
                     return "#0094c8";
                     else
-<<<<<<< HEAD
+ 
                     return "#0094c8";
                 }
             }
-=======
+ 
                     return "orange";
                 }
->>>>>>> FETCH_HEAD
+ 
         });
 
     var legend = svg.selectAll("g.legend")
         .data([
-<<<<<<< HEAD
+ 
             {"Name": "Selected", "Color": "#82ae46"},
             {"Name": "Private", "Color": "#0094c8"},
             {"Name": "Searched", "Color": "orange"},
             {"Name": "Default", "Color": "#4F4F4F"}
-=======
+ 
             {"Name": "Searched", "Color": "s3"},
             {"Name": "Private", "Color": "s2"},
             {"Name": "Public", "Color": "s1"}
->>>>>>> FETCH_HEAD
+ 
         ])
         .enter().append("svg:g")
         .attr("transform", function(d, i) { return "translate(740," + (i * 20 + 370) + ")"; });
 
-<<<<<<< HEAD
+ 
     legend.append("svg:circle")
         .attr("fill", function(d){
-=======
+ 
     legend.append("circle")
         .attr("class", function(d){
->>>>>>> FETCH_HEAD
+ 
             return d.Color;
         })
         .attr("r", 3);
