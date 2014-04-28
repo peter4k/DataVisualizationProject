@@ -39,8 +39,8 @@ var yValue = function (d) {
     yAxis;
 
 function scatterplot(){
-    margin = {top: 20, right: 20, bottom: 30, left: 90},
-    width = 800 - margin.left - margin.right,
+    margin = {top: 20, right: 300, bottom: 30, left: 90},
+    width = 1000 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
 
@@ -56,6 +56,8 @@ function createSPSvg() {
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
 }
 
 function updateChart(data)
@@ -72,11 +74,11 @@ function updateChart(data)
     // creating the x-axis
     svg.append("g")
         .attr("class", "x axis")
-        .attr("transform", "translate(0, 460)")
+        .attr("transform", "translate(0, 450)")
         .call(xAxis)
         .append("text")
         .attr("class", "label")
-        .attr("x", width)
+        .attr("x", 670)
         .attr("y", -6)
         .style("text-anchor", "end")
         .text(xname);
@@ -175,6 +177,29 @@ function updateChart(data)
             d3.select("#mouserect").remove();
         });
     transformChart(data);
+
+    var legend = svg.selectAll("g.legend")
+        .data([
+            {"Name": "Selected", "Color": "#82ae46"},
+            {"Name": "Private", "Color": "#0094c8"},
+            {"Name": "Searched", "Color": "orange"},
+            {"Name": "Default", "Color": "#4F4F4F"}
+        ])
+        .enter().append("svg:g")
+        .attr("transform", function(d, i) { return "translate(740," + (i * 20 + 370) + ")"; });
+
+    legend.append("svg:circle")
+        .attr("fill", function(d){
+            return d.Color;
+        })
+        .attr("r", 3);
+
+    legend.append("svg:text")
+        .attr("x", 12)
+        .attr("dy", ".31em")
+        .text(function(d) { return d.Name; });
+
+
 };
 
 function transformChart(data){
@@ -193,11 +218,11 @@ function transformChart(data){
     // creating the x-axis
     svg.append("g")
         .attr("class", "x axis")
-        .attr("transform", "translate(0,460)")
+        .attr("transform", "translate(0,450)")
         .call(xAxis)
         .append("text")
         .attr("class", "label")
-        .attr("x", width)
+        .attr("x", 670)
         .attr("y", -6)
         .style("text-anchor", "end")
         .text(xname);
@@ -229,7 +254,7 @@ function transformChart(data){
                 }
             })
             if(spcolor == 1){
-                return "red";
+                return "orange";
             }
             else{
                 if(spcontrol == 0)
@@ -238,10 +263,33 @@ function transformChart(data){
                     if(d.control == 1)
                     return "#4F4F4F";
                     else
-                    return "blue";
+                    return "#0094c8";
                 }
             }
+        });
+
+    var legend = svg.selectAll("g.legend")
+        .data([
+            {"Name": "Selected", "Color": "#82ae46"},
+            {"Name": "Private", "Color": "#0094c8"},
+            {"Name": "Searched", "Color": "orange"},
+            {"Name": "Default", "Color": "#4F4F4F"}
+        ])
+        .enter().append("svg:g")
+        .attr("transform", function(d, i) { return "translate(740," + (i * 20 + 370) + ")"; });
+
+    legend.append("svg:circle")
+        .attr("fill", function(d){
+            return d.Color;
         })
+        .attr("r", 3);
+
+    legend.append("svg:text")
+        .attr("x", 12)
+        .attr("dy", ".31em")
+        .text(function(d) { return d.Name; });
+
+
 }
 
 function chooseCategory()

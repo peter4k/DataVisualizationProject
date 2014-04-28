@@ -17,3 +17,25 @@ function getAxisFormat(name){
 
     return d3.format(tempformat);
 }
+
+function getLabelText(lable){
+    console.log(lable)
+    var text;
+    switch (lable){
+        case "tuition03_tf":
+            text = "Tuition";
+            break;
+        case "tot_rev_w_auxother_sum":
+            text = "Total Revenue";
+            break;
+        case "total_enrollment":
+            text = "Enrollment";
+            break;
+        case "all_employees":
+            text = "Employee";
+            break;
+    }
+    return text;
+}
+
+

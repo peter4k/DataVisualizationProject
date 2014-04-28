@@ -13,11 +13,11 @@ var svg = d3.select("body").append("svg")
 .attr("height", height);;
 
 var map_color = d3.scale.linear()
-.domain([0,0.01, 0.02])
+.domain([0,0.65, 1])
 .range(["yellow","orange", "red"]);
 
 var map_color_rev = d3.scale.linear()
-.domain([0,0.65, 0.8])
+.domain([0,0.65, 0.9])
 .range(["yellow","orange", "red"]);
 
 var opt = 0;
@@ -40,7 +40,7 @@ function Drawmap(){
            if(opt == 0){
            var total_value = d3.mean(data, function(n) { return n.revenue;});
            } else if (opt == 1) {
-           var total_value = d3.sum(data, function(n) { return n.all_employees; });
+           var total_value = d3.mean(data, function(n) { return n.all_employees; });
            }
            d3.json("json/us.json", function(error, topology) {
                    
@@ -65,6 +65,7 @@ function Drawmap(){
                                        count++;
                                        }else if(opt==1){
                                        local_value = local_value + m.all_employees;
+                                       count++;
                                        }
                                        }
                                        
@@ -80,7 +81,7 @@ function Drawmap(){
                           var num = (local_value/count)/total_value;
                           return map_color_rev(num);
                           } else {
-                          var num = (local_value)/total_value;
+                          var num = (local_value/count)/total_value;
                           }
                           return map_color(num);
                           }
@@ -93,7 +94,23 @@ function Drawmap(){
                    .append("circle")
                    .attr("r",2)
                    .attr("fill", "black")
-                   .attr("transform", function(d) {return "translate(" + projection([d.LONGITUD,d.LATITUDE]) + ")";});
+                   .attr("transform", function(d) {
+                         if(d.LONGITUD !== 0 && d.LATITUDE !== 0){
+                         return "translate(" + projection([d.LONGITUD,d.LATITUDE]) + ")"}
+                         });
+                   
+                   
+                   svg.selectAll(".circle")
+                   .data(data)
+                   .enter()
+                   .append("circle")
+                   .attr("r",2)
+                   .attr("fill", "white")
+                   .attr("transform", function(d) {
+                         
+                         return "translate(" + 0 + 0 + ")"
+                         });
+                   
                    
                    
                    d3.selectAll("input")
