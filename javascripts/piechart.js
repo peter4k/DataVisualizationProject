@@ -110,29 +110,20 @@ function piechart(){
                     return get_location(d,i)
                   
            });
-
-        var rects = blocks.append("rect")
-            .attr({
- 
-                "x": 120,
- 
-                "x": 80,
-  
-                "y": 0,
-                "width": 30,
-                "height": 30,
-                "rx": 5,
-                "ry": 5
-            })
-           .style("fill", function(d,i){return pie_color[i];})
+           var rects = blocks.append("rect")
+           .attr({
+                 "x": 140,
+                 "y": 0,
+                 "width": 30,
+                 "height": 30,
+                 "rx": 5,
+                 "ry": 5
+                 })
+           .style("fill", function(d,i){return  pie_color[i]});
 
  
         var text_content = blocks.append("text").data(schoolnames)
-            .attr({x:153, y:14})
- 
-        var text_content = blocks.append("text")
-            .attr({x:113, y:14})
- 
+            .attr({x:173, y:14})
             .style({
                 "fill": "#232323",
                 "stroke-width": 0 + "px",
@@ -141,7 +132,7 @@ function piechart(){
                 "alignment-baseline": "middle",
                 "font-family": "sans-serif"
             })
-            .text(function(d,i){return d})
+            .text(function(d){return d})
 
         var path = svg.datum(csvdata).selectAll("path")
             .data(pie)
