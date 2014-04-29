@@ -6,23 +6,31 @@ var barsort = 0;
 var barvar = "tuition03_tf";
 var barname = "Tuition";
 
-function barChart(){
+function barChart() {
 
 
-    var margin = {top: 20, right: 20, bottom: 300, left: 100},
+    var margin = {top: 20, right: 150, bottom: 300, left: 100},
         width = 960 - margin.left - margin.right,
         height = 700 - margin.top - margin.bottom;
 
     var formatPercent = d3.format(".0%");
 
-    var xValue = function(d) { return d.instname; }, // data -> value
+    var xValue = function (d) {
+            return d.instname;
+        }, // data -> value
         xScale = d3.scale.ordinal().rangeRoundBands([0, width], .1), // value -> display
-        xMap = function(d) { return xScale(xValue(d)); }, // data -> display
+        xMap = function (d) {
+            return xScale(xValue(d));
+        }, // data -> display
         xAxis = d3.svg.axis().scale(xScale).orient("bottom");
 
-    var yValue = function(d) { return d[barvar]; }, // data -> value
+    var yValue = function (d) {
+            return d[barvar];
+        }, // data -> value
         yScale = d3.scale.linear().range([height, 0]), // value -> display
-        yMap = function(d) { return yScale(yValue(d)); }, // data -> display
+        yMap = function (d) {
+            return yScale(yValue(d));
+        }, // data -> display
         yAxis = d3.svg.axis().scale(yScale).orient("left").tickFormat(getAxisFormat(barvar));
 
     var svg = d3.select("#svgtd").append("svg")
@@ -32,16 +40,16 @@ function barChart(){
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    d3.csv("data/top50with5categories.csv", type, function(error, data) {
+    d3.csv("data/top50with5categories.csv", type, function (error, data) {
 
-        if(barsort == 1){
-            data.sort(function(a, b){
+        if (barsort == 1) {
+            data.sort(function (a, b) {
                 return b[barvar] - a[barvar];
             });
         }
-        else if(barsort == 2){
+        else if (barsort == 2) {
             console.log("true")
-            data.sort(function(a, b){
+            data.sort(function (a, b) {
                 return a[barvar] - b[barvar];
             });
         }
@@ -74,7 +82,7 @@ function barChart(){
             .attr("y", 6)
             .attr("dy", ".71em")
             .style("text-anchor", "end")
-            .text(function(d){
+            .text(function (d) {
                 return barname;
             });
 
@@ -82,28 +90,60 @@ function barChart(){
         svg.selectAll(".bar")
             .data(data)
             .enter().append("rect")
-            .attr("class", "bar")
-            .attr("fill", function(d){
-                var color = 0;
-                schoolnames.forEach(function(n){
-                    if(d.instname == n){
-                        color = 1;
+            .attr("class", function (d) {
+//            console.log()
+                if (schoolnames.length == 0) {
+                    return "bar";
+                }
+                else {
+                    var spcolor = 0;
+                    schoolnames.forEach(function (n) {
+                        if (d.instname == n) {
+                            spcolor = 1;
+                        }
+                    })
+                    if (spcolor == 1) {
+                        return "bar";
                     }
-                })
-                if(color == 0){
-                    return "steelblue";
+                    else {
+                        return "transparentBar";
+                    }
                 }
-                else{
-                    return "orange";
-                }
+            })
+            .attr("fill", function(d){
+                if(d.control == 1)
+                    return "#0099CC";
+                else
+                    return "#FF3300";
             })
             .attr("x", xMap)
             .attr("width", xScale.rangeBand)
             .attr("y", yMap)
-            .attr("height", function(d) {
-                return height - yMap(d); });
+            .attr("height", function (d) {
+                return height - yMap(d);
+            });
 
     });
+
+    var legend = svg.selectAll("g.legend")
+        .data([
+            {"Name": "Private", "Color": "#FF3300"},
+            {"Name": "Public", "Color": "#0099CC"}
+        ])
+        .enter().append("svg:g")
+        .attr("transform", function(d, i) { return "translate(730," + (i * 20 + 330) + ")"; });
+
+    legend.append("rect")
+        .attr("fill", function(d){
+            return d.Color;
+        })
+        .attr("width", 40)
+        .attr("height", 10);
+
+    legend.append("svg:text")
+        .attr("x", 42)
+        .attr("dy", "0.9em")
+        .text(function(d) { return d.Name; });
 
     function type(d) {
         d.tuition03_tf = +d.tuition03_tf;
@@ -112,22 +152,22 @@ function barChart(){
 }
 
 
-function barform(){
-    var text = '<form>'+
-        '<select id="barSelect" onchange="barChooseCategory()">'+
-        '<option value="tuition03_tf">Tuition</option>'+
-        '<option value="tot_rev_w_auxother_sum">Total Revenue</option>'+
-        '<option value="total_enrollment">Total Enrollment</option>'+
-        '<option value="all_employees">Employees</option>'+
+function barform() {
+    var text = '<form>' +
+        '<select id="barSelect" onchange="barChooseCategory()">' +
+        '<option value="tuition03_tf">Tuition</option>' +
+        '<option value="tot_rev_w_auxother_sum">Total Revenue</option>' +
+        '<option value="total_enrollment">Total Enrollment</option>' +
+        '<option value="all_employees">Employees</option>' +
         '</select>' +
-        '<input type="button" name="button" value="sort" onclick="sortBars()"/>'+
-        '<input type="button" name="button" value="reset" onclick="resetBars()"/>'+
+        '<input type="button" name="button" value="sort" onclick="sortBars()"/>' +
+        '<input type="button" name="button" value="reset" onclick="resetBars()"/>' +
         '</form>';
-    document.getElementById("selection").innerHTML=text;
+    document.getElementById("selection").innerHTML = text;
 }
 
 
-function barChooseCategory(){
+function barChooseCategory() {
     barvar = document.getElementById("barSelect")
         .options[barSelect.selectedIndex].value;
     barname = document.getElementById("barSelect")
@@ -136,17 +176,17 @@ function barChooseCategory(){
     barChart();
 }
 
-function resetBars(){
+function resetBars() {
     barsort = 0;
     d3.select("#mainsvg").remove();
     barChart();
 }
 
-function sortBars(){
-    if(barsort == 0 || barsort == 2){
+function sortBars() {
+    if (barsort == 0 || barsort == 2) {
         barsort = 1;
     }
-    else{
+    else {
         barsort = 2;
     }
     d3.select("#mainsvg").remove();

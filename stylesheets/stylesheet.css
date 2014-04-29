@@ -270,6 +270,10 @@ svg {
 }
 
 .bar {
+
+}
+.transparentBar {
+    fill-opacity: .25;
 }
 .barx.axis{
     writing-mode: tb-rl;
@@ -347,10 +351,14 @@ rect.frame {
     stroke: #aaa;
 }
 
-/*circle {*/
-    /*fill: #ccc;*/
-    /*fill-opacity: .5;*/
-/*}*/
+
+circle {
+
+}
+
+circle.transparent {
+    fill-opacity: .25;
+}
 
 .legend circle {
     fill-opacity: 1;
@@ -365,31 +373,19 @@ rect.frame {
     pointer-events: none;
 }
 
-.setosa {
-    fill: #800;
-}
-
-.versicolor {
-    fill: #080;
-}
-
-.virginica {
-    fill: #008;
-}
-
 .s1{
-    fill: #0094c8;
+    fill: #0099CC;
 }
 
 .s2{
-    fill: orange;
+    fill: #FF3300;
 }
 
-.s3{
-    fill: gray;
-    stroke: #000;
-    stroke-width:2;
-}
+/*.s3{*/
+    /*fill: #1b9e77;*/
+    /*stroke: orange;*/
+    /*stroke-width:2;*/
+/*}*/
 
 
 .line {

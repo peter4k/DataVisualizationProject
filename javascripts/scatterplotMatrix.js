@@ -144,8 +144,8 @@ function createSPM(){
 
         var legend = svg.selectAll("g.legend")
             .data([
-                {"Name": "Private", "Color": "orange"},
-                {"Name": "Public", "Color": "#0094c8"}
+                {"Name": "Private", "Color": "#FF3300"},
+                {"Name": "Public", "Color": "#0099CC"}
             ])
             .enter().append("svg:g")
             .attr("transform", function(d, i) { return "translate(650," + (i * 20 + 450) + ")"; });
