@@ -390,8 +390,13 @@ circle.transparent {
 
 .line {
     fill: none;
-    stroke: lightgrey;
     stroke-width: 1.5px;
+}
+.redline {
+
+fill: none;
+stroke-width: 1.5px;
+
 }
 .tmpline {
     fill: none;
