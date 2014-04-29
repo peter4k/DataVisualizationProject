@@ -16,6 +16,11 @@ var map_color = d3.scale.linear()
 .domain([0,0.65, 1])
 .range(["yellow","orange", "red"]);
 
+var c_color = d3.scale.linear()
+.domain([0, 1])
+.range(["grey", "black"]);
+
+
 var map_color_rev = d3.scale.linear()
 .domain([0,0.65, 0.9])
 .range(["yellow","orange", "red"]);
@@ -23,6 +28,10 @@ var map_color_rev = d3.scale.linear()
 var opt = 0;
 
 var data = d3.range(10);
+
+var c_value;
+
+var total_value;
 
 Drawmap();
 
@@ -38,9 +47,9 @@ function Drawmap(){
                         });
            
            if(opt == 0){
-           var total_value = d3.mean(data, function(n) { return n.revenue;});
+            total_value = d3.mean(data, function(n) { return n.revenue;});
            } else if (opt == 1) {
-           var total_value = d3.mean(data, function(n) { return n.all_employees; });
+            total_value = d3.mean(data, function(n) { return n.all_employees; });
            }
            d3.json("json/us.json", function(error, topology) {
                    
@@ -93,7 +102,20 @@ function Drawmap(){
                    .enter()
                    .append("circle")
                    .attr("r",2)
-                   .attr("fill", "black")
+                   .attr("fill", "blue")
+                   .attr("fill",function(d){
+                         if(opt==0){
+                         
+                         return(c_color(d.revenue/total_value))
+                         
+                         } else if (opt == 1) {
+                         
+                         return(c_color(d.all_employees/total_value))
+                         
+                         }
+                         
+                         
+                         })
                    .attr("transform", function(d) {
                          if(d.LONGITUD !== 0 && d.LATITUDE !== 0){
                          return "translate(" + projection([d.LONGITUD,d.LATITUDE]) + ")"}
@@ -121,7 +143,6 @@ function Drawmap(){
                    var value = this.value;
                    if(value == "revenue"){ opt = 0;}
                    if(value == "all_employees"){ opt = 1;}
-                   
                    Drawmap();
                    }
                    
