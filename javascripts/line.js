@@ -93,6 +93,59 @@ function line(){
            .text(d3.round(d3.max(data, function(d) { return(d.all_employees/100); })));
            
            
+          
+           
+           schoolnames.forEach(function(n){
+                               
+                               data.forEach(function (d){
+                                            
+                                            if(d.instname == n){
+                                            var color;
+                                            
+                                            if(d.control == 1){
+                                            color = "#0099CC";
+                                            }
+                                            else {
+                                            color = "#FF3300";
+                                            }
+                                            
+                                            redline1 = svg.append("line")
+                                            .attr("class", "redline")
+                                            .style("stroke",color)
+                                            .attr("x1",0)
+                                            .attr("y1",y1(d.revenue/10000000))
+                                            .attr("x2",200)
+                                            .attr("y2",y2(d.tuition/100));
+                                            
+                                            redline2 = svg.append("line")
+                                            .attr("class", "redline")
+                                            .style("stroke",color)
+                                            .attr("x1",200)
+                                            .attr("y1",y2(d.tuition/100))
+                                            .attr("x2",400)
+                                            .attr("y2",y3(d.total_enrollment/100));
+                                            
+                                            redline3 = svg.append("line")
+                                            .attr("class", "redline")
+                                            .style("stroke",color)
+                                            .attr("x1",400)
+                                            .attr("y1",y3(d.total_enrollment/100))
+                                            .attr("x2",600)
+                                            .attr("y2",y4(d.all_employees/100));
+                                            
+                                            
+                                            }
+                                            
+                                            
+                                            
+                                            });
+                               
+                               
+                               
+                               });
+           
+           
+           
            
            
            var univs = svg.selectAll(".line")
@@ -256,23 +309,35 @@ function line(){
                
                })
            
-           .on("mouseout",function(){ 
+           .on("mouseout",function(){
                
                
                });
+
+    
            
-           
+           if(schoolnames[0]==null){
            univs.append("line")
            .attr("class", "line")
-           .style("fill","lightgrey")
+           .style("stroke",function(d){
+                  if(d.control == 1)
+                  return "#0099CC";
+                  else
+                  return "#FF3300";
+                  })
            .attr("x1",0)
            .attr("y1",(data,function (d) { return y1(d.revenue/10000000);}))
            .attr("x2",200)
-           .attr("y2",(data,function (d) { return y2(d.tuition/100);})); 
+           .attr("y2",(data,function (d) { return y2(d.tuition/100);}));
            
            univs.append("line")
            .attr("class", "line")
-           .style("fill","lightgrey")
+           .style("stroke",function(d){
+                  if(d.control == 1)
+                  return "#0099CC";
+                  else
+                  return "#FF3300";
+                  })
            .attr("x1",200)
            .attr("y1",(data,function (d) { return y2(d.tuition/100);}))
            .attr("x2",400)
@@ -280,56 +345,62 @@ function line(){
            
            univs.append("line")
            .attr("class", "line")
-           .style("fill","lightgrey")
+           .style("stroke",function(d){
+                  if(d.control == 1)
+                  return "#0099CC";
+                  else
+                  return "#FF3300";
+                  })
            .attr("x1",400)
            .attr("y1",(data,function (d) { return y3(d.total_enrollment/100);}))
            .attr("x2",600)
            .attr("y2",(data,function (d) { return y4(d.all_employees/100);}));
            
+           } else if(schoolnames[0]!=1) {
            
-           schoolnames.forEach(function(n){
-                               
-                               data.forEach(function (d){
-                                            
-                                            if(d.instname == n){
-                                            
-                                            
-                                            redline1 = svg.append("line")
-                                            .attr("class", "redline")
-                                            .style("stroke","red")
-                                            .attr("x1",0)
-                                            .attr("y1",y1(d.revenue/10000000))
-                                            .attr("x2",200)
-                                            .attr("y2",y2(d.tuition/100));
-                                            
-                                            redline2 = svg.append("line")
-                                            .attr("class", "redline")
-                                            .style("stroke","red")
-                                            .attr("x1",200)
-                                            .attr("y1",y2(d.tuition/100))
-                                            .attr("x2",400)
-                                            .attr("y2",y3(d.total_enrollment/100));
-                                            
-                                            redline3 = svg.append("line")
-                                            .attr("class", "redline")
-                                            .style("stroke","red")
-                                            .attr("x1",400)
-                                            .attr("y1",y3(d.total_enrollment/100))
-                                            .attr("x2",600)
-                                            .attr("y2",y4(d.all_employees/100));
-                                            
-                                            
-                                            }
-                                            
-                                            
-                                            
-                                            });
-                               
-                               
-                               
-                               });
-
-    
+           univs.append("line")
+           .attr("class", "line")
+           .attr("opacity",0.1)
+           .style("stroke",function(d){
+                  if(d.control == 1)
+                  return "#0099CC";
+                  else
+                  return "#FF3300";
+                  })
+           .attr("x1",0)
+           .attr("y1",(data,function (d) { return y1(d.revenue/10000000);}))
+           .attr("x2",200)
+           .attr("y2",(data,function (d) { return y2(d.tuition/100);}));
+           
+           univs.append("line")
+           .attr("class", "line")
+           .attr("opacity",0.1)
+           .style("stroke",function(d){
+                  if(d.control == 1)
+                  return "#0099CC";
+                  else
+                  return "#FF3300";
+                  })
+           .attr("x1",200)
+           .attr("y1",(data,function (d) { return y2(d.tuition/100);}))
+           .attr("x2",400)
+           .attr("y2",(data,function (d) { return y3(d.total_enrollment/100);}));
+           
+           univs.append("line")
+           .attr("class", "line")
+           .attr("opacity",0.1)
+           .style("stroke",function(d){
+                  if(d.control == 1)
+                  return "#0099CC";
+                  else
+                  return "#FF3300";
+                  })
+           .attr("x1",400)
+           .attr("y1",(data,function (d) { return y3(d.total_enrollment/100);}))
+           .attr("x2",600)
+           .attr("y2",(data,function (d) { return y4(d.all_employees/100);}));
+           
+           }
            
            svg.append("g")
            .attr("class", "y axis")

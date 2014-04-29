@@ -100,7 +100,7 @@ function updateChart(data)
         .data(data)
         .enter()
         .append("circle")
-        .attr("r", 3.5)
+        .attr("r", 5)
         .attr("cx", xMap)
         .attr("cy", yMap)
         .attr("fill", "#4F4F4F")
@@ -180,7 +180,7 @@ function updateChart(data)
 
     var legend = svg.selectAll("g.legend")
         .data([
-            {"Name": "Searched", "Color": "s3"},
+//            {"Name": "Searched", "Color": "s3"},
             {"Name": "Private", "Color": "s2"},
             {"Name": "Public", "Color": "s1"}
         ])
@@ -244,33 +244,38 @@ function transformChart(data){
         .data(data)
         .transition()
         .attr("class",function(d){
-            var spcolor = 0;
-            schoolnames.forEach(function(n){
-                if(d.instname == n){
-                    spcolor = 1;
+//            console.log()
+            if (schoolnames.length == 0){
+                return "circle";
+            }
+            else{
+                var spcolor = 0;
+                schoolnames.forEach(function(n){
+                    if(d.instname == n){
+                        spcolor = 1;
+                    }
+                })
+                if(spcolor == 1){
+                    return "circle";
                 }
-            })
-            if(spcolor == 1){
-                return "searched";
+                else{
+                    return "transparent";
+                }
             }
         })
         .attr("r", 3.5)
         .attr("cx", xMap)
         .attr("cy", yMap)
         .attr("fill", function(d){
-                if(spcontrol == 0)
-                return "#4F4F4F";
-                else{
                     if(d.control == 1)
-                    return "#0094c8";
+                    return "#0099CC";
                     else
-                    return "orange";
-                }
+                    return "#FF3300";
         });
 
     var legend = svg.selectAll("g.legend")
         .data([
-            {"Name": "Searched", "Color": "s3"},
+//            {"Name": "Searched", "Color": "s3"},
             {"Name": "Private", "Color": "s2"},
             {"Name": "Public", "Color": "s1"}
         ])
@@ -339,8 +344,6 @@ function spform(){
     '<option value="total_enrollment">Total Enrollment</option>'+
     '<option value="all_employees">Employees</option>'+
     '</select>'+
-        '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+
-        '<input type="checkbox" id="spcheck" name="control" value="control" onclick="updateControl()">Private/public'+
         '</form>';
     document.getElementById("selection").innerHTML=text;
 }
