@@ -287,7 +287,312 @@ function callJS() {
 
 function formchange() {
 
+<<<<<<< HEAD
     loadData();
+=======
+    function search() {
+        var name = schoolname.name.value;
+        var sfound = 0;
+
+        d3.csv("data/top50with5categories.csv", function (error, dataset) {
+            var tempdata = new Array();
+            // ensures data from csv is interpreted as int
+            dataset.forEach(function (d) {
+                if (name == d.instname) {
+                    schoolnames.push(name);
+                    sfound = 1;
+ 
+                }
+            });
+
+            if (sfound == 1) {
+                selecteddata = tempdata;
+                var text = schoolnames[0];
+                for (var i = 1; i < schoolnames.length; i++) {
+                    text = text + "<br>" + schoolnames[i];
+                }
+                document.getElementById("selectedschools").innerHTML = text;
+                sfound = 0;
+            }
+            else {
+                alert("Cannot find this School");
+                sfound = 0;
+            }
+
+            if (currentChart == "scatterplot") {
+                chooseCategory();
+            }
+            else if (currentChart == "bar") {
+                d3.select("#mainsvg").remove();
+                barChart();
+            } else if (currentChart == "pie") {
+                d3.select("#mainsvg").remove();
+                piechart();
+
+            } else if (currentChart == "lines") {
+                d3.select("#mainsvg").remove();
+                line();
+            }
+
+            console.log(schoolnames.length);
+        });
+    }
+
+
+    function callJS() {
+        switch (currentChart) {
+            case "scatterplot":
+                updateChart(data);
+                break;
+        }
+    }
+
+    //                function selectdata(){
+    //                    var temp;
+    //
+    //                    temp = document.getElementById("dataselect")
+    //                    .options[dataselect.selectedIndex].value;
+    //                    switch  (temp){
+    //                        case "top50":
+    //                        currentDataset = "data/top50with5categories.csv";
+    //                        break;
+    //                        default :
+    //                        currentDataset = "data/states/" + temp + ".csv";
+    //                        break;
+    //                    }
+    //                    formchange();
+    //                }
+
+    function formchange() {
+
+        loadData();
+
+        if (currentChart == "lines") {
+            deleteSvg();
+            line();
+        }
+
+        if (currentChart == "pie") {
+            deleteSvg();
+            piechart();
+        }
+        if (currentChart == "scatterplot") {
+            console.log("called");
+            deleteSvg();
+            scatterplot();
+        }
+        if (currentChart == "spm") {
+            deleteSvg();
+            createSPM();
+        }
+        if (currentChart == "bar") {
+            deleteSvg();
+            barChart();
+            barform();
+        }
+        if (currentChart == "map") {
+            window.location.href = "MAP.html";
+        }
+    }
+</script>
+
+
+</section>
+</div>
+
+<!-- FOOTER  -->
+<div id="footer_wrap" class="outer">
+    <footer class="inner">
+        <p class="copyright">Datavisualizationproject maintained by <a href="https://github.com/azepeda2">azepeda2</a>
+        </p>
+
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+    </footer>
+</div>
+
+
+</body>
+</html>
+
+                                            <!--<option value="South Carolina">South Carolina</option>-->
+                                            <!--<option value="South Dakota">South Dakota</option>-->
+                                            <!--<option value="Tennessee">Tennessee</option>-->
+                                            <!--<option value="Texas">Texas</option>-->
+                                            <!--<option value="Utah">Utah</option>-->
+                                            <!--<option value="Vermont">Vermont</option>-->
+                                            <!--<option value="Virginia">Virginia</option>-->
+                                            <!--<option value="Washington">Washington</option>-->
+                                            <!--<option value="West Virginia">West Virginia</option>-->
+                                            <!--<option value="Wisconsin">Wisconsin</option>-->
+                                            <!--<option value="Wyoming">Wyoming</option>-->
+                                        <!--</select>-->
+                                    <!--</form>-->
+                                    <!--<br/>-->
+                                    <!--<hr/>-->
+                                <!--</tr>-->
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                
+                <script>
+                    
+                    var currentChart = "scatterplot";
+                    var selecteddata;
+                    var data;
+                    var schoolnames = new Array();
+                    
+                    var currentDataset = "data/top50with5categories.csv";
+                    
+                    d3.selectAll("#pieradio")
+                    .on("change", indexFormchange);
+                    
+                    function indexFormchange() {
+                        var value = this.value;
+                        currentChart = value;
+                        
+                        if (value == "lines") {
+                            deleteSvg();
+                            line();
+                        }
+                        
+                        if (value == "pie") {
+                            deleteSvg();
+                            piechart();
+                        }
+                        if (value == "scatterplot") {
+                            deleteSvg();
+                            scatterplot();
+                            updateChart(data);
+                        }
+                        if (value == "spm") {
+                            deleteSvg();
+                            createSPM();
+                        }
+                        if (value == "bar") {
+                            deleteSvg();
+                            barChart();
+                            barform();
+                        }
+                        if (value == "map") {
+                            window.location.href="MAP.html";
+                        }
+                    }
+                
+                loadData();
+                deleteSvg();
+                scatterplot();
+                
+                function deleteSvg() {
+                    d3.select("#mainsvg").remove();
+                }
+                
+                function loadData() {
+                    d3.csv(currentDataset, function (error, dataset) {
+                           
+                           // ensures data from csv is interpreted as int
+                           dataset.forEach(function (d) {
+                                           d.tuition03_tf = +d.tuition03_tf;
+                                           d.tot_rev_w_auxother_sum = +d.tot_rev_w_auxother_sum;
+                                           d.control = +d.control;
+                                           d.total_enrollment = +d.total_enrollment;
+                                           d.all_employees = +d.all_employees;
+                                           });
+                           
+                           data = dataset;
+                           
+                           callJS();
+                           });
+                }
+                
+                function search() {
+                    var name = schoolname.name.value;
+                    var sfound = 0;
+                    
+                    
+                    
+                    d3.csv("data/map.csv", function (error, dataset) {
+                           var tempdata = new Array();
+                           // ensures data from csv is interpreted as int
+                           dataset.forEach(function (d) {
+                                           if (name == d.instname) {
+                                           schoolnames.push(name);
+                                           sfound = 1;
+                                           }
+                                           });
+                           
+                           if (sfound == 1) {
+                           selecteddata = tempdata;
+                           var text = schoolnames[0];
+                           for (var i = 1; i < schoolnames.length; i++) {
+                           text = text + "<br>" + schoolnames[i];
+                           }
+                           document.getElementById("selectedschools").innerHTML = text;
+                           sfound = 0;
+                           }
+                           else {
+                           alert("Cannot find this School");
+                           sfound = 0;
+                           }
+                           
+                           if (currentChart == "scatterplot") {
+                           chooseCategory();
+                           }
+                           else if (currentChart == "bar") {
+                           d3.select("#mainsvg").remove();
+                           barChart();
+                           }else if (currentChart == "pie"){
+                           d3.select("#mainsvg").remove();
+                           piechart();
+                           
+                           }else if (currentChart == "lines"){
+                           d3.select("#mainsvg").remove();
+                           line();
+                           
+                           }
+                           });
+                }
+                
+                
+                function callJS() {
+                    switch (currentChart) {
+                        case "scatterplot":
+                        updateChart(data);
+                        break;
+                    }
+ 
+                }
+            });
+
+            if (sfound == 1) {
+                selecteddata = tempdata;
+                var text = schoolnames[0];
+                for (var i = 1; i < schoolnames.length; i++) {
+                    text = text + "<br>" + schoolnames[i];
+                }
+                document.getElementById("selectedschools").innerHTML = text;
+                sfound = 0;
+            }
+            else {
+                alert("Cannot find this School");
+                sfound = 0;
+            }
+
+            if (currentChart == "scatterplot") {
+                chooseCategory();
+            }
+            else if (currentChart == "bar") {
+                d3.select("#mainsvg").remove();
+                barChart();
+            } else if (currentChart == "pie") {
+                d3.select("#mainsvg").remove();
+                piechart();
+
+            } else if (currentChart == "lines") {
+                d3.select("#mainsvg").remove();
+                line();
+            }
+>>>>>>> FETCH_HEAD
 
     if (currentChart == "lines") {
         deleteSvg();
