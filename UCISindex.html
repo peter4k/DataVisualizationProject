@@ -216,7 +216,9 @@
                     var name = schoolname.name.value;
                     var sfound = 0;
                     
-                    d3.csv("data/top50with5categories.csv", function (error, dataset) {
+                    
+                    
+                    d3.csv("data/map.csv", function (error, dataset) {
                            var tempdata = new Array();
                            // ensures data from csv is interpreted as int
                            dataset.forEach(function (d) {
