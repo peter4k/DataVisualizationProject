@@ -162,6 +162,7 @@
                 if (name == d.instname) {
                     schoolnames.push(name);
                     sfound = 1;
+<<<<<<< HEAD
                 }
             });
 
@@ -420,71 +421,116 @@
                         updateChart(data);
                         break;
                     }
+=======
+>>>>>>> FETCH_HEAD
                 }
-                
-//                function selectdata(){
-//                    var temp;
-//
-//                    temp = document.getElementById("dataselect")
-//                    .options[dataselect.selectedIndex].value;
-//                    switch  (temp){
-//                        case "top50":
-//                        currentDataset = "data/top50with5categories.csv";
-//                        break;
-//                        default :
-//                        currentDataset = "data/states/" + temp + ".csv";
-//                        break;
-//                    }
-//                    formchange();
-//                }
-                
-                function formchange() {
-                    
-                    loadData();
-                    
-                    if (currentChart == "lines") {
-                        deleteSvg();
-                        line();
-                    }
-                    
-                    if (currentChart == "pie") {
-                        deleteSvg();
-                        piechart();
-                    }
-                    if (currentChart == "scatterplot") {
-                        console.log("called");
-                        deleteSvg();
-                        scatterplot();
-                    }
-                    if (currentChart == "spm") {
-                        deleteSvg();
-                        createSPM();
-                    }
-                    if (currentChart == "bar") {
-                        deleteSvg();
-                        barChart();
-                        barform();
-                    }
-                    if (currentChart == "map") {
-                        window.location.href = "MAP.html";
-                    }
+            });
+
+            if (sfound == 1) {
+                selecteddata = tempdata;
+                var text = schoolnames[0];
+                for (var i = 1; i < schoolnames.length; i++) {
+                    text = text + "<br>" + schoolnames[i];
                 }
-                </script>
-                
-                
-            </section>
-        </div>
-        
-        <!-- FOOTER  -->
-        <div id="footer_wrap" class="outer">
-            <footer class="inner">
-                <p class="copyright">Datavisualizationproject maintained by <a href="https://github.com/azepeda2">azepeda2</a>
-                </p>
-                
-                <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-            </footer>
-        </div>
-        
-        
-    </body>
+                document.getElementById("selectedschools").innerHTML = text;
+                sfound = 0;
+            }
+            else {
+                alert("Cannot find this School");
+                sfound = 0;
+            }
+
+            if (currentChart == "scatterplot") {
+                chooseCategory();
+            }
+            else if (currentChart == "bar") {
+                d3.select("#mainsvg").remove();
+                barChart();
+            } else if (currentChart == "pie") {
+                d3.select("#mainsvg").remove();
+                piechart();
+
+            } else if (currentChart == "lines") {
+                d3.select("#mainsvg").remove();
+                line();
+            }
+
+            console.log(schoolnames.length);
+        });
+    }
+
+
+    function callJS() {
+        switch (currentChart) {
+            case "scatterplot":
+                updateChart(data);
+                break;
+        }
+    }
+
+    //                function selectdata(){
+    //                    var temp;
+    //
+    //                    temp = document.getElementById("dataselect")
+    //                    .options[dataselect.selectedIndex].value;
+    //                    switch  (temp){
+    //                        case "top50":
+    //                        currentDataset = "data/top50with5categories.csv";
+    //                        break;
+    //                        default :
+    //                        currentDataset = "data/states/" + temp + ".csv";
+    //                        break;
+    //                    }
+    //                    formchange();
+    //                }
+
+    function formchange() {
+
+        loadData();
+
+        if (currentChart == "lines") {
+            deleteSvg();
+            line();
+        }
+
+        if (currentChart == "pie") {
+            deleteSvg();
+            piechart();
+        }
+        if (currentChart == "scatterplot") {
+            console.log("called");
+            deleteSvg();
+            scatterplot();
+        }
+        if (currentChart == "spm") {
+            deleteSvg();
+            createSPM();
+        }
+        if (currentChart == "bar") {
+            deleteSvg();
+            barChart();
+            barform();
+        }
+        if (currentChart == "map") {
+            window.location.href = "MAP.html";
+        }
+    }
+</script>
+
+
+</section>
+</div>
+
+<!-- FOOTER  -->
+<div id="footer_wrap" class="outer">
+    <footer class="inner">
+        <p class="copyright">Datavisualizationproject maintained by <a href="https://github.com/azepeda2">azepeda2</a>
+        </p>
+
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+    </footer>
+</div>
+
+
+</body>
 </html>
