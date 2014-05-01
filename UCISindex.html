@@ -207,7 +207,7 @@ function loadData() {
             d.total_enrollment = +d.total_enrollment;
             d.all_employees = +d.all_employees;
         });
-<<<<<<< HEAD
+ 
 
         data = dataset;
 
@@ -219,7 +219,7 @@ function search() {
     var name = schoolname.name.value;
     var sfound = 0;
 
-=======
+
 
         data = dataset;
 
@@ -230,8 +230,7 @@ function search() {
 function search() {
     var name = schoolname.name.value;
     var sfound = 0;
-
->>>>>>> FETCH_HEAD
+ 
     d3.csv("data/top50with5categories.csv", function (error, dataset) {
         var tempdata = new Array();
         // ensures data from csv is interpreted as int
@@ -267,7 +266,7 @@ function search() {
             alert("Cannot find this School");
             sfound = 0;
         }
-<<<<<<< HEAD
+ 
 
         if (currentChart == "scatterplot") {
             chooseCategory();
@@ -375,7 +374,7 @@ function formchange() {
     <footer class="inner">
         <p class="copyright">Datavisualizationproject maintained by <a href="https://github.com/azepeda2">azepeda2</a>
         </p>
-=======
+ 
 
         if (currentChart == "scatterplot") {
             chooseCategory();
@@ -386,7 +385,7 @@ function formchange() {
         } else if (currentChart == "pie") {
             d3.select("#mainsvg").remove();
             piechart();
->>>>>>> FETCH_HEAD
+ 
 
         } else if (currentChart == "lines") {
             d3.select("#mainsvg").remove();
@@ -397,7 +396,7 @@ function formchange() {
     });
 }
 
-<<<<<<< HEAD
+
 </body>
 </html>
                          piechart();
@@ -505,12 +504,12 @@ function formchange() {
  
                 }
             });
-=======
+ 
 function clearSearch(){
     schoolnames = [];
     document.getElementById("selectedschools").innerHTML = "";
 
->>>>>>> FETCH_HEAD
+ 
 
     if (currentChart == "scatterplot") {
         chooseCategory();
