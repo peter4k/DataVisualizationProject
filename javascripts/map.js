@@ -9,8 +9,9 @@ var path = d3.geo.path()
 .projection(projection);
 
 var svg = d3.select("body").append("svg")
+.attr("id","mainsvg")
 .attr("width", width)
-.attr("height", height);;
+.attr("height", height);
 
 var map_color = d3.scale.linear()
 .domain([0,0.65, 1])
@@ -22,7 +23,7 @@ var c_color = d3.scale.linear()
 
 
 var map_color_rev = d3.scale.linear()
-.domain([0,0.65, 0.9])
+.domain([0,0.5, 1.0])
 .range(["yellow","orange", "red"]);
 
 var opt = 0;
@@ -37,6 +38,8 @@ Drawmap();
 
 function Drawmap(){
     
+    
+    
     d3.csv("data/mapgps_new.csv", function(error, data) {
            
            data.forEach(function(d) {
@@ -50,6 +53,10 @@ function Drawmap(){
             total_value = d3.mean(data, function(n) { return n.revenue;});
            } else if (opt == 1) {
             total_value = d3.mean(data, function(n) { return n.all_employees; });
+           } else if (opt == 2){
+            total_value = d3.mean(data, function(n) { return n.tuition; });
+           } else if (opt == 3) {
+            total_value = d3.mean(data, function(n) { return n.total_enrollment;});
            }
            d3.json("json/us.json", function(error, topology) {
                    
@@ -75,6 +82,13 @@ function Drawmap(){
                                        }else if(opt==1){
                                        local_value = local_value + m.all_employees;
                                        count++;
+                                       } else if(opt==2){
+                                       local_value = local_value + m.tuition;
+                                       count++;
+                                       
+                                       } else if(opt==3){
+                                       local_value = local_value + m.total_enrollment;
+                                       count++;
                                        }
                                        }
                                        
@@ -89,7 +103,7 @@ function Drawmap(){
                           if(opt==0){
                           var num = (local_value/count)/total_value;
                           return map_color_rev(num);
-                          } else {
+                          } else{
                           var num = (local_value/count)/total_value;
                           }
                           return map_color(num);
@@ -102,20 +116,8 @@ function Drawmap(){
                    .enter()
                    .append("circle")
                    .attr("r",2)
-                   .attr("fill", "blue")
-                   .attr("fill",function(d){
-                         if(opt==0){
-                         
-                         return(c_color(d.revenue/total_value))
-                         
-                         } else if (opt == 1) {
-                         
-                         return(c_color(d.all_employees/total_value))
-                         
-                         }
-                         
-                         
-                         })
+                   .attr("fill", "black")
+                   .attr("opacity",0.25)
                    .attr("transform", function(d) {
                          if(d.LONGITUD !== 0 && d.LATITUDE !== 0){
                          return "translate(" + projection([d.LONGITUD,d.LATITUDE]) + ")"}
@@ -143,9 +145,12 @@ function Drawmap(){
                    var value = this.value;
                    if(value == "revenue"){ opt = 0;}
                    if(value == "all_employees"){ opt = 1;}
+                   if(value == "tuition"){opt = 2;}
+                   if(value == "total_enrollment"){opt=3;}
+                   d3.selectAll("circle").remove()
                    Drawmap();
                    }
-                   
+                
                    });  //json
            }); //csv
 }
