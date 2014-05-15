@@ -33,7 +33,7 @@ function createSPM(){
     var text = ''
     document.getElementById("selection").innerHTML=text;
 
-    d3.csv("data/top50with5categories.csv", function(flowers) {
+    d3.csv("data/top50with5categories.csv", function(data) {
 
         // Size parameters.
         var size = 140,
@@ -45,10 +45,10 @@ function createSPM(){
         var x = {}, y = {};
         traits.forEach(function(trait) {
             // Coerce values to numbers.
-            flowers.forEach(function(d) { d[trait] = +d[trait]; });
+            data.forEach(function(d) { d[trait] = +d[trait]; });
 
             var value = function(d) { return d[trait]; },
-                domain = [d3.min(flowers, value), d3.max(flowers, value)],
+                domain = [d3.min(data, value), d3.max(data, value)],
                 range = [padding / 2, size - padding / 2];
             x[trait] = d3.scale.linear().domain(domain).range(range);
             y[trait] = d3.scale.linear().domain(domain).range(range.reverse());
@@ -105,7 +105,7 @@ function createSPM(){
             var cell = d3.select(this);
 
             // Plot frame.
-            cell.append("svg:rect")
+            cell.append("rect")
                 .attr("class", "frame")
                 .attr("x", padding / 2)
                 .attr("y", padding / 2)
@@ -114,8 +114,8 @@ function createSPM(){
 
             // Plot dots.
             cell.selectAll("circle")
-                .data(flowers)
-                .enter().append("svg:circle")
+                .data(data)
+                .enter().append("circle")
                 .attr("class", function(d) { return "s" + d.control; })
                 .attr("cx", function(d) { return x[p.x](d[p.x]); })
                 .attr("cy", function(d) {
@@ -134,12 +134,6 @@ function createSPM(){
             var c = [], n = a.length, m = b.length, i, j;
             for (i = -1; ++i < n;) for (j = -1; ++j < m;) c.push({x: a[i], i: i, y: b[j], j: j});
             return c;
-        }
-
-        function rcontrol(d) {
-            return e[0][0] <= d[p.x] && d[p.x] <= e[1][0]
-                && e[0][1] <= d[p.y] && d[p.y] <= e[1][1]
-                ? d.control : null;
         }
 
         var legend = svg.selectAll("g.legend")
