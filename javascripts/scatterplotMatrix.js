@@ -116,7 +116,32 @@ function createSPM(){
             cell.selectAll("circle")
                 .data(data)
                 .enter().append("circle")
-                .attr("class", function(d) { return "s" + d.control; })
+                .attr("class",function(d){
+//            console.log()
+                    if (schoolnames.length == 0){
+                        return "circle";
+                    }
+                    else{
+                        var spcolor = 0;
+                        schoolnames.forEach(function(n){
+                            if(d.instname == n){
+                                spcolor = 1;
+                            }
+                        })
+                        if(spcolor == 1){
+                            return "circle";
+                        }
+                        else{
+                            return "transparent";
+                        }
+                    }
+                })
+                .attr("fill", function(d){
+                    if(d.control == 1)
+                        return "#0099CC";
+                    else
+                        return "#FF3300";
+                })
                 .attr("cx", function(d) { return x[p.x](d[p.x]); })
                 .attr("cy", function(d) {
                     if(y[p.y](d[p.y]) < 1){
