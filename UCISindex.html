@@ -269,6 +269,10 @@
                            d3.select("#mainsvg").remove();
                            line();
                            }
+                           else if (currentChart == "spm") {
+                               deleteSvg();
+                               createSPM();
+                           }
                            
                            console.log(schoolnames.length);
                            });
@@ -292,6 +296,10 @@
                     } else if (currentChart == "lines") {
                         d3.select("#mainsvg").remove();
                         line();
+                    }
+                    else if (currentChart == "spm") {
+                        deleteSvg();
+                        createSPM();
                     }
                 }
                 
