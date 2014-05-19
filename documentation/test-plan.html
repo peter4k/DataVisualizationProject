@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//Tigris//DTD XHTML 1.0 Transitional//EN"
+"http://style.tigris.org/tigris_transitional.dtd">
+<html>
+<head>
+ <style type="text/css">
+/* <![CDATA[ */ 
+@import "css/readyset.css"; 
+@import "css/inst.css";
+/*  ]]> */
+ </style>
+
+<link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
+ <title>User Guide</title>
+</head>
+
+<body>
+<div class="app">
+<div class="readyset">
+ <h2>Test Plan</h2>
+ <div id="projectinfo">
+   <h3>Product Release Information</h3>
+ <div class="axial">
+ <table border="1" cellpadding="3" cellspacing="2">
+  <tr>
+   <th>Product:</th> 
+   <td><a href="http://www.COMPANY.com/products/PRODUCTNAME/">USCIs</a></td> 
+  </tr>
+ </table>
+ </div>
+ </div> <!-- /projectinfo -->
+
+ <div id="toc">
+ <h3>Test Plan</h3>
+ <ol class="sample1">
+   <p>The goal of our system is to deliver information about universities. So we have to make sure that the data is displayed correctly. Since our project is using a static dataset, it is not likely to have bugs that are caused by the dataset. However it is possible that the system displays the data incorrectly. For example, some circles in the Scatterplot Chart may be in the incorrect positions. Another situation is that when dataset is changed, there could be some problems occur.<br />
+     Because of this, we will focus on unit testing for each individual modules. We will also perform an integration testing to ensure the each module interact correctly with others.</p><li> Test Objectives<br />
+     The most important qualities we want to test is the correctness of the data displayed. We will perform the test mostly focus on this attribute. We will also test the efficiency of the system, to ensure that all functions will cost reasonable time to respond. <br />
+     </li>
+     <li>Scenario 1<br />
+       Unit Testing: test the approximate accuracy by comparing with the original data<br />
+       For this part, we will perform a unit testing for each individual visualizations. We will compare the data displayed in the chart with the original CSV file to approximately determine the correctness of the positions. For each visualization, we start by comparing the largest and smallest value in the dataset, because these values are most likely to be displayed outside of the chart and cause errors. Then we will randomly choose several universities in the dataset and check the correctness of the positions of these universities. These two steps test an approximate accuracy of the visualization. if we find errors in these two steps, we have to look into the code to figure out the problem.</li>
+   <li>Scenario 2 <br />
+     Unit Testing: test the accuracy by comparing offset with the original data<br />
+     For this part, we will perform a unit testing for each individual visualizations. The visualizations draw schools as SVG instances. The position of each school is assigned by x and y offset attributes according to the data. We will compare the offset of all instance with the original CSV file. To do so, we use Chrome browser console to get the offset attributes of all the universities. Then we use a short python script to 1) according to the dataset, compute the correct offset value. 2) compare the offset attributes with the computed offset value. The results of this comparison will tell us the incorrect values and we can look into the code to find the bugs.</li>
+   <li>Scenario 3<br />
+     Unit Testing: test the visualizations using different dataset.<br />
+     From the above scenarios we can test the correctness of the visualization of a single dataset. However to keep the data updated, and to include more schools in our system, we have to make frequently changes to the dataset. But when we change the dataset it is likely to cause some error. We will perform a brief version of the first scenario to do the unit testing with different dataset. </li>
+   <li>Scenario 4<br />
+     Integrate Testing: Test the Search Function<br />
+     Searching is a very important function in our system. All searched universities are stored in an array. Each visualization has to loop through the array to get all the universities. So we have to perform a unit testing to test if the search module corporate with other visualizations correctly.<br />
+     We start by searching for several universities in our dataset. Then we compare the value in visualizations to check if the corresponding circle, line or bar is correctly highlighted. Then we change the value to be represented to see if the corresponding circle, line or bar moves correctly. At last we switch visualizations to check if changing visualization method will cause errors. </li>
+ </ol>
+ </div> <!-- toc -->
+
+</div>
+<div class="legal1">Company Proprietary</div>
+
+<div class="footnote">
+ Copyright &#169; 2003-2004 Jason Robbins.  All rights reserved. <a href="readyset-license.html">License terms</a>.
+ Retain this copyright statement whenever this file is used as a
+ template.
+</div>
+
+</div>
+</body>
+</html>
