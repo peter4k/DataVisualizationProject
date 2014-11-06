@@ -29,221 +29,47 @@
  <table border="1" cellpadding="3" cellspacing="2" class="axial">
   <tr>
    <th>Project:</th> 
-   <td><a href="index.html">PROJECTNAME</a></td> 
-  </tr>
-  <tr>
-   <th>Internal Release Number:</th> 
-   <td>X.Y.Z</td> 
-  </tr>
-  <tr>
-   <th>Related Documents:</th> 
-   <td>
-    <div><a href="proposal.html">Project proposal</a> &gt;
-         <a href="user-needs.html">User needs</a></div>
-    <div><a href="srs.html">SRS</a> &gt;
-         <a href="use-case-suite.html">Use case suite</a></div>
-    <div><a href="feature-format.html">Feature format</a></div>
-    <div><a href="LINK-TO-DIAGRAM">Use case diagram</a></div>
-    <div>LINKS TO RELEVANT STANDARDS</div>
-    <div>LINKS TO OTHER DOCUMENTS</div>
-   </td>
+   <td><a href="index.html">USCIs</a></td> 
   </tr>
  </table>
- </div> <!-- /releaseinfo -->
+ </div> <!-- /releaseinfo --><!-- /processimpact -->
 
-
-
- <div id="processimpact">
-  <b>Process impact:</b> A feature set is simply a
-  table of contents for the individual feature descriptions.  Much like
-  a test suite, organizing the feature set by priority, functional area,
-  actor, business object, or release can help identify missing, extra,
-  or poorly motivated features early.
- </div> <!-- /processimpact -->
-
-<div class="todo"> TODO: Before writing individual feature
-  descriptions, list all the features that you think you will need.
-  Organize them so that missing features appear as blanks on this
-  page, and extra features will appear to be extras that don't
-  fit anywhere.  See the <a href="feature-format.html#checklist">feature
-  format</a> document for more tips on specifying features and feature
-  sets.
-</div>
-
-<div class="tip"> 
- TIP: Refer back to the user stories in your <a
- href="user-needs.html">user needs</a> document and to the <a
- href="use-case-suite.html">use case suite</a>.  Use them for ideas and
- make sure that you cover all of them.
-</div>
-
-
-
-<div id="bypriority">
-<h3>Features by Release and Priority</h3>
-
-<div class="todo"> 
- TODO: Select subset of features can be implemented for a given
- release.  When features are listed in priority order, choosing the
- features to implement in a release simply becomes a matter of
- "drawing a line": features below the line must wait for a later
- release.  Make sure to also consider estimated effort and risk.
-</div>
-
-
-<ul>
- <li class="drawtheline">Release 1.0
- <ul>
- <li>Essential
-  <ul>
-   <li><a href="features.html#F-00">F-00</a> Site configuration</li>
-   <li><a href="features.html#F-01">F-01</a> User registration</li>
-   <li><a href="features.html#F-21">F-21</a> NAME OF FEATURE</li>
-   <li><a href="features.html#F-31">F-31</a> NAME OF FEATURE</li>
-  </ul>
- </li>
-
- <li>Expected
-  <ul>
-   <li><a href="features.html#F-02">F-02</a> NAME OF FEATURE</li>
-   <li><a href="features.html#F-03">F-03</a> NAME OF FEATURE</li>
-   <li><a href="features.html#F-20">F-20</a> NAME OF FEATURE</li>
-  </ul>
- </li>
- </ul>
- </li>
-
- <li class="drawtheline">Release 1.1
- <ul>
- <li>Expected
-  <ul>
-   <li><a href="features.html#F-22">F-22</a> NAME OF FEATURE</li>
-   <li><a href="features.html#F-23">F-23</a> NAME OF FEATURE</li>
-   <li><a href="features.html#F-33">F-33</a> NAME OF FEATURE</li>
-  </ul>
- </li>
-
- <li>Desired
-  <ul>
-   <li><a href="features.html#F-10">F-10</a> NAME OF FEATURE</li>
-   <li><a href="features.html#F-11">F-11</a> NAME OF FEATURE</li>
-   <li><a href="features.html#F-12">F-12</a> NAME OF FEATURE</li>
-  </ul>
- </li>
- </ul>
- </li>
-
- <li>Later Releases
- <ul>
- <li>Optional
-  <ul>
-   <li><a href="features.html#F-30">F-30</a> NAME OF FEATURE</li>
-   <li><a href="features.html#F-32">F-32</a> NAME OF FEATURE</li>
-  </ul>
- </li>
- </ul>
- </li>
-
-</ul>
- </div> <!-- /bypriority -->
+ 
 
 
 
 
-<div id="byrisk">
-<h3>Features by Release and Risk</h3>
-
-<ul>
- <li class="drawtheline">Release 1.0
- <ul>
-   <li><a href="features.html#F-00">F-00</a> Safe : Site configuration</li>
-   <li><a href="features.html#F-01">F-01</a> Safe : User registration</li>
-   <li><a href="features.html#F-21">F-21</a> Safe : NAME OF FEATURE</li>
-   <li><a href="features.html#F-31">F-31</a> 1-Risk : NAME OF FEATURE</li>
-   <li><a href="features.html#F-02">F-02</a> 1-Risk : NAME OF FEATURE</li>
-   <li><a href="features.html#F-03">F-03</a> 2-Risks : NAME OF FEATURE</li>
-   <li><a href="features.html#F-20">F-20</a> 2-Risks : NAME OF FEATURE</li>
-   <li>Total unique risk factors: 4</li>
- </ul>
- </li>
-
- <li class="drawtheline">Release 1.1
- <ul>
-   <li><a href="features.html#F-22">F-22</a> Safe : NAME OF FEATURE</li>
-   <li><a href="features.html#F-23">F-23</a> Safe : NAME OF FEATURE</li>
-   <li><a href="features.html#F-33">F-33</a> Safe : NAME OF FEATURE</li>
-   <li><a href="features.html#F-10">F-10</a> 2-Risks : NAME OF FEATURE</li>
-   <li><a href="features.html#F-11">F-11</a> 2-Risks : NAME OF FEATURE</li>
-   <li><a href="features.html#F-12">F-12</a> 3-Risks : NAME OF FEATURE</li>
-   <li>Total unique risk factors: 5</li>
- </ul>
- </li>
-
- <li>Later Releases
- <ul>
-   <li><a href="features.html#F-30">F-30</a> Safe : NAME OF FEATURE</li>
-   <li><a href="features.html#F-32">F-32</a> 2-Risks : NAME OF FEATURE</li>
-   <li>Total unique risk factors: 2</li>
- </ul>
- </li>
-
-</ul>
- </div> <!-- /byrisk -->
 
 
 
 <div id="byfunction">
-<h3>Features by Functional Area</h3>
+<h3>Functions</h3>
 
 <ul>
- <li>FUNCTIONAL AREA ONE
-  <ul>
-   <li><a href="features.html#F-00">F-00</a> Site configuration</li>
-   <li><a href="features.html#F-01">F-01</a> User registration</li>
-   <li><a href="features.html#F-02">F-02</a> NAME OF FEATURE</li>
-   <li><a href="features.html#F-03">F-03</a> NAME OF FEATURE</li>
-  </ul>
- </li>
-
- <li>FUNCTIONAL AREA TWO
-  <ul>
-   <li><a href="features.html#F-10">F-10</a> NAME OF FEATURE</li>
-   <li><a href="features.html#F-11">F-11</a> NAME OF FEATURE</li>
-   <li><a href="features.html#F-12">F-12</a> NAME OF FEATURE</li>
-   <li><a href="features.html#F-13">F-13</a> NAME OF FEATURE</li>
-  </ul>
- </li>
-
- <li>FUNCTIONAL AREA THREE
-  <ul>
-   <li><a href="features.html#F-20">F-20</a> NAME OF FEATURE</li>
-   <li><a href="features.html#F-21">F-21</a> NAME OF FEATURE</li>
-   <li><a href="features.html#F-22">F-22</a> NAME OF FEATURE</li>
-   <li><a href="features.html#F-23">F-23</a> NAME OF FEATURE</li>
-  </ul>
- </li>
-
- <li>FUNCTIONAL AREA FOUR
-  <ul>
-   <li>N/A: These features are completely automated and internal,
-   users never interact with them</li>
-  </ul>
- </li>
-
- <li>FUNCTIONAL AREA FIVE
-  <ul>
-   <li>TODO: need to write use cases here</li>
-  </ul>
- </li>
-
- <li>Other functional areas
-  <ul>
-   <li><a href="features.html#F-30">F-30</a> NAME OF FEATURE</li>
-   <li><a href="features.html#F-31">F-31</a> NAME OF FEATURE</li>
-   <li><a href="features.html#F-32">F-32</a> NAME OF FEATURE</li>
-   <li><a href="features.html#F-33">F-33</a> NAME OF FEATURE</li>
-  </ul>
- </li>
+  <li><strong>Data Set</strong><br />
+    We have collected 178 different kinds of data for each school. This data is collected from several different databases to make sure our data visualization system can deliver the most meaningful information. Because our functions are based on the dataset, we will first describe our project by introducing the information that will be included in our system. <br />
+    Basic information: the data set contains most of the basic information about each school, including school classification (private or public), geographic data including cities, states, zip codes, and GPS coordinates, as well as other information that the user may be interested in.<br />
+    Financial data: the data set contains the major financial information for each institute including revenues, debt, funding, funds from local government, federal government, and more. It also contains information on tuition and fees, as well as awards and scholarships that the institute offers.<br />
+    Education data: this includes the types of certificates and degrees the school offers, the total number of degrees granted from the school and SAT/ACT scores for admission.<br />
+    Campus population: this describes the student body and has information on race, academic level, award and aid received, and many more. It also includes employee data, but we are not including it because this system is mainly to be used by students.</li>
+  <li><strong>Core Functions</strong><br />
+    Core functions are the most important functionalities of our project that ensure our system is able to help users clearly understand the information of each school. All core functions were expected to be completed when the project is finished.</li>
+  <li><strong>General College Information</strong><br />
+    The most basic function of the USCI system is to display general information about a school. Users will be able to select a school by clicking on it on the map or searching for it. After a user selects a school, there will be some basic information displayed including: university name, address, phone number, university type.</li>
+  <li><strong>Fully Customizable Visualization</strong><br />
+    For each school, we will implement the &ldquo;fully customizable visualization&rdquo; which is an upgrade of the basic information function. The user can select which information he or she wants to be displayed. Users can also configure how to visualize the data. For example, a user can choose to display the ratio of asian and white students and display them in a pie chart. Users can choose any of the values we have in the system and have them displayed in a window. The system will also suggest some visualization configurations to the user.</li>
+  <li><strong>Comparing with other Schools</strong><br />
+    The user will be able to select several schools to be compared. The system will allow a user to select the data and how to visualize the comparison. Most of the data can be selected in this function. For example, the user can select student population of 5 different schools and display this information using a bar chart. </li>
+  <li><strong>Map Based Data Visualization</strong><br />
+    The project's visualizations will function primarily on a map. We collected the GPS coordinates of each institute from a database &ldquo;Post-Secondary University Survey 2010&rdquo;7. Every university in our database has a GPS coordinate associated with it, which allows us to show them on a map with their exact locations.<br />
+    The different types of data will be visualized using colors. The system will display data on the map using different colors. For example, if the user wants to visualize degrees granted on the map, the area with more degrees granted will have a deeper color whereas the area with less degrees granted will have a lighter color. There will be no color shown in the area where there is no college.</li>
+  <li><strong>Extra functionality</strong><br />
+    There are several features we are considering implementing if we have extra time to work on the project. These functions include visualizing data by states, which will display the data on a map for each individual state in the United States. Instead of getting the numbers for each individual institution, it will get the totals for each state. For example, the data can be the total number of institutes in the state, total number of degrees granted in a year. These values would also be visualized using colors. <br />
+    We have also considered implementing data visualizations for the same university or area in different years. This might be possible since our data sets include data collected in different years. The main challenge is in cleaning the data because some universities are missing data for certain years.<br />
+    Because of the leaving of one member in our team. We have not implemented any of the extra functions. </li>
+  <li><strong>User Interface</strong><br />
+    We will create a web-based system. The system can be accessed through any web browser. It will function as an interactive web page with the functions described above.<br />
+    The user will be able to click on most data visualized on the web page and receive a response. There will be more details displayed for each data. The website will also display a navigation panel that allows the user to switch between different functions in the system.</li>
 
 </ul>
  </div> <!-- /byfunction -->
@@ -251,15 +77,6 @@
 
 
 </div>
-
-  <div class="todo">
-  TODO:  Check for <a
-  href="http://readyset.tigris.org/words-of-wisdom/feature-set.html">words
-  of wisdom</a> and discuss ways to improve this template.
-  Or, evaluate the ReadySET Pro <a title="pro use case template and sample test plan"
-  href="http://www.readysetpro.com/">professional feature set template</a>.
-  </div>
-
 <div class="legal1">Company Proprietary</div>
 
 <div class="footnote">
