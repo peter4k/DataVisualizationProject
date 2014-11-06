@@ -92,12 +92,12 @@ function barChart() {
             .enter().append("rect")
             .attr("class", function (d) {
 //            console.log()
-                if (schoolnames.length == 0) {
+                if (partnernames.length == 0) {
                     return "bar";
                 }
                 else {
                     var spcolor = 0;
-                    schoolnames.forEach(function (n) {
+                    partnernames.forEach(function (n) {
                         if (d.instname == n) {
                             spcolor = 1;
                         }

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//Tigris//DTD XHTML 1.0 Transitional//EN"
+"http://style.tigris.org/tigris_transitional.dtd">
+<html>
+<head>
+ <style type="text/css">
+/* <![CDATA[ */ 
+@import "css/readyset.css"; 
+@import "css/inst.css";
+/*  ]]> */
+ </style>
+
+<link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
+ <title>Project Plan</title>
+</head>
+
+<body>
+<div class="app">
+<div class="readyset">
+ <h2>Deliverables </h2>
+
+ <div id="projectinfo">
+ <h3>Project Information</h3>
+ <table border="1" cellpadding="3" cellspacing="2" class="axial">
+  <tr>
+   <th>Project:</th> 
+   <td><a href="index.html">PROJECTNAME</a></td>
+  </tr>
+  <tr>
+      <th>Project:</th>
+      <td><a href="index.html"> United States College Information System</a></td>
+  </tr>
+  <tr>
+      <th>Internal Release Number:</th>
+      <td>1.0</td>
+  </tr>
+ </table>
+ </div> <!-- /projectinfo -->
+
+ <div id="processimpact">
+  <strong>Process impact:</strong> This plan will
+  be used to evaluate and manage the project.  Key assumptions that
+  affect the plan should be documented here.  The project plan should
+  be updated throughout the life-time of the project.
+ </div> <!-- /processimpact -->
+
+
+ <div id="summary">
+ <h3>Primary deliverables</h3>
+
+ <div class="sample1">
+     <p>Number of files: 8 </p>
+     <p>Size of files:  578kb</p>
+     <p>Total physical source lines of code: 1879 (SLOC do not support javascript and html)</p>
+     
+     <p>csvLoader.py:</p>
+     <p>This python program contains command lines for reading a .csv file and it can clean the data or merge two datasets into a new dataset. Then, it can select which rows we need to visualize. We only keep the codes for creating top50 universities data and map's data since we do not need to clean the data again if we have finished the cleaning function.</p>
+     <p>multiply.py:</p>
+     A helper class of csvLoader.py. This file can extract a reading file and return a dictionary object for data processing module.
+     
+    <p> bar.js/ line.js/ map.js/piechart /scatterplot/ scatterplot matrix:</p>
+     <p>To a create a bar chart/ a parallel coordinator chart/ a map/ a pie chart/a scatterplot chart/ a scatterplot matrix by using JavaScript/D3.</p>
+</p>
+
+   </div> <!-- /summary -->
+
+
+ <div id="methodology">
+ <h3>Other deliverables</h3>
+ <dl><p>Files: mapgps_new.csv, top50.csv, us.json, UCISindex.html</p>
+     <p>mapgps_new.csv:</p>
+     <p>The data file which contains all U.S universities with the values of university's name, state, revenue, tuition, total employees, total enrolments and Longitude and Latitude.</p>
+     <p>top50.csv:</p>
+     <p>The data file which contains top 50 ranks of U.S universities with the values of university's name, state, revenue, tuition, total employees, total enrolments.</p>
+     <p>us.json:</p>
+     <p>The topojson file which contains states' names and their arcs for drawing a U.S map.</p>
+    <p> Index.html:</p>
+     <p>The index page of UCIS project. It contains a brief introduction to the project and user can download the source code or go to the main page of UCIS project's visualization module.</p>
+     <p>UCISindex.html:</p>
+     <p>The main page of UCIS project's visualization module. The user can chose different visualization charts from this page.</p>
+     
+     <p>We include 734 kb of data files and 481 SLOC for our index page.</p>
+     
+ </dl>
+ </div> <!-- /methodology -->
+ 
+</div>
+</body>
+</html>
